@@ -1,0 +1,1651 @@
+
+> encomm-site@1.0.0 dev
+> next dev
+
+▲ Next.js 16.2.10 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://172.16.0.2:3000
+✓ Ready in 613ms
+- Experiments (use with caution):
+  · optimizePackageImports
+
+ GET / 200 in 649ms (next.js: 200ms, application-code: 449ms)
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HTTPAccessFallbackErrorBoundary pathname="/" notFound={{...}} forbidden={undefined} unauthorized={undefined} ...>
+      <RedirectBoundary>
+        <RedirectErrorBoundary router={{...}}>
+          <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} segmentPath={[...]} ...>
+            <SegmentViewNode type="page" pagePath="page.tsx">
+              <SegmentTrieNode>
+              <Home>
+                <Navigation>
+                <main id="main">
+                  <Hero>
+                  <Narrative>
+                  <Systems>
+                  <Capabilities>
+                    <section id="capabilities" ref={{current:null}} className="section-an...">
+                      <div>
+                      <div>
+                      <div className="mx-auto ma...">
+                        <div className="relative m..." style={{...}}>
+                          <div className="constellat..." style={{...}} data-cursor="EXPLORE">
+                            <svg className="absolute i..." viewBox="0 0 100 100" preserveAspectRatio="none" ...>
+                              <defs>
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line
+                                x1={20.71038460926685}
+                                y1={70.93127875364829}
+                                x2={63.4291592909394}
++                               y2={24.522604514225243}
+-                               y2="24.522604514225247"
+                                stroke="rgba(11,15,36,0.08)"
+                                strokeWidth={0.25}
+                                vectorEffect="non-scaling-stroke"
+                              >
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line
+                                x1={63.4291592909394}
++                               y1={24.522604514225243}
+-                               y1="24.522604514225247"
+                                x2={20.71038460926685}
+                                y2={70.93127875364829}
+                                stroke="rgba(11,15,36,0.08)"
+                                strokeWidth={0.25}
+                                vectorEffect="non-scaling-stroke"
+                              >
+                              <line
+                                x1={63.4291592909394}
++                               y1={24.522604514225243}
+-                               y1="24.522604514225247"
+                                x2={30.69563796912087}
+                                y2={40.30971586687202}
+                                stroke="rgba(11,15,36,0.08)"
+                                strokeWidth={0.25}
+                                vectorEffect="non-scaling-stroke"
+                              >
+                              <line>
+                              <line
+                                x1={30.69563796912087}
+                                y1={40.30971586687202}
+                                x2={63.4291592909394}
++                               y2={24.522604514225243}
+-                               y2="24.522604514225247"
+                                stroke="rgba(11,15,36,0.08)"
+                                strokeWidth={0.25}
+                                vectorEffect="non-scaling-stroke"
+                              >
+                            <div>
+                            <button>
+                            <button>
+                            <button>
+                            <button>
+                            <button>
+                            <button>
+                            <button>
+                            <button>
+                            <button
+                              type="button"
+                              className="cap-node absolute -translate-x-1/2 -translate-y-1/2"
+                              style={{
++                               left: "63.4291592909394%"
+-                               left: "63.4292%"
++                               top: "24.522604514225243%"
+-                               top: "24.5226%"
++                               transform: "translate(-50%, -50%) scale(1.21)"
+-                               transform: "translate(-50%, -50%) scale(1.21)"
++                               zIndex: 11
+-                               z-index: "11"
+                              }}
+                              onMouseEnter={function onMouseEnter}
+                              onMouseLeave={function onMouseLeave}
+                              onFocus={function onFocus}
+                              onBlur={function onBlur}
+                              onClick={function onClick}
+                              aria-label="Human-in-the-loop: Review, approve, and override decisions."
+                            >
+                            ...
+                        ...
+                  <UseCaseExplorer>
+                  <Approach>
+                  <Globe>
+                    <section id="company" ref={{current:null}} className="section-an..." style={{--tilt-x:"...", ...}}>
+                      <div>
+                      <div>
+                      <div className="mx-auto gr...">
+                        <div>
+                        <div className="relative m..." style={{...}}>
+                          <div ref={{current:null}} className="relative h..." style={{...}} data-cursor="EXPLORE">
+                            <svg viewBox="-200 -200 ..." className="absolute i..." aria-hidden="true">
+                              <defs>
+                              <circle>
+                              <ellipse>
+                              <ellipse>
+                              <ellipse>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={90.29508254896454}
+-                               cx="90.29508254896456"
+                                cy={104.24821002386635}
+                                r={0.7}
+                                fill="rgba(11,15,36,0.18)"
+                                opacity={0.3}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={-93.30567334549266}
+-                               cx="-93.30567334549269"
+                                cy={76.75417661097852}
+                                r={0.7}
+                                fill="rgba(11,15,36,0.18)"
+                                opacity={0.3}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={-114.2333883739583}
+-                               cx="-114.23338837395829"
+                                cy={49.26014319809069}
+                                r={1.4}
+                                fill="#6a4dff"
+                                opacity={0.7}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={-91.65558932983171}
+-                               cx="-91.65558932983168"
+                                cy={39.33174224343675}
+                                r={1.4}
+                                fill="#6a4dff"
+                                opacity={0.7}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={138.00746716483857}
+-                               cx="138.00746716483854"
+                                cy={27.87589498806682}
+                                r={1.4}
+                                fill="#6a4dff"
+                                opacity={0.7}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={-142.91665450907095}
+-                               cx="-142.91665450907098"
+                                cy={17.183770883054894}
+                                r={1.4}
+                                fill="#6a4dff"
+                                opacity={0.7}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={-109.89524638767436}
+-                               cx="-109.89524638767435"
+                                cy={8.78281622911695}
+                                r={0.7}
+                                fill="rgba(11,15,36,0.18)"
+                                opacity={0.3}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={121.01384655875619}
+-                               cx="121.0138465587562"
+                                cy={-5.727923627684959}
+                                r={0.7}
+                                fill="rgba(11,15,36,0.18)"
+                                opacity={0.3}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={118.97780501755719}
+-                               cx="118.97780501755717"
+                                cy={-82.1002386634845}
+                                r={1.4}
+                                fill="#6a4dff"
+                                opacity={0.7}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={-103.7778567456223}
+-                               cx="-103.77785674562232"
+                                cy={-85.15513126491648}
+                                r={0.7}
+                                fill="rgba(11,15,36,0.18)"
+                                opacity={0.3}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={-93.16680893370733}
+-                               cx="-93.16680893370736"
+                                cy={-118.75894988066825}
+                                r={1.4}
+                                fill="#6a4dff"
+                                opacity={0.7}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={-28.075477018814944}
+-                               cx="-28.075477018814937"
+                                cy={-154.65393794749403}
+                                r={1.4}
+                                fill="#6a4dff"
+                                opacity={0.7}
+                              >
+                              ...
+                              ...
+                          ...
+                  ...
+                ...
+            ...
+          ...
+ 
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] Uncaught TypeError: Cannot read properties of null (reading 'alpha')
+    at EncommCore (components/webgl/EncommCore.tsx:334:9)
+    at EncommCoreLazy (components/sections/Hero.tsx:301:10)
+    at Hero (components/sections/Hero.tsx:182:13)
+    at Home (app\page.tsx:17:9)
+  332 |
+  333 |       {enablePost ? (
+> 334 |         <EffectComposer enableNormalPass={false}>
+      |         ^
+  335 |           <Bloom
+  336 |             intensity={0.55}
+  337 |             luminanceThreshold={0.55}
+[browser] Uncaught TypeError: Cannot read properties of null (reading 'alpha')
+    at EncommCore (components/webgl/EncommCore.tsx:301:5)
+    at EncommCoreLazy (components/sections/Hero.tsx:301:10)
+    at Hero (components/sections/Hero.tsx:182:13)
+    at Home (app\page.tsx:17:9)
+  299 |
+  300 |   return (
+> 301 |     <Canvas
+      |     ^
+  302 |       className="!absolute inset-0"
+  303 |       style={{ background: "transparent" }}
+  304 |       dpr={dpr}
+ GET / 200 in 153ms (next.js: 10ms, application-code: 143ms)
+[browser] A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <HTTPAccessFallbackErrorBoundary pathname="/" notFound={{...}} forbidden={undefined} unauthorized={undefined} ...>
+      <RedirectBoundary>
+        <RedirectErrorBoundary router={{...}}>
+          <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} segmentPath={[...]} ...>
+            <SegmentViewNode type="page" pagePath="page.tsx">
+              <SegmentTrieNode>
+              <Home>
+                <Navigation>
+                <main id="main">
+                  <Hero>
+                  <Narrative>
+                  <Systems>
+                  <Capabilities>
+                    <section id="capabilities" ref={{current:null}} className="section-an...">
+                      <div>
+                      <div>
+                      <div className="mx-auto ma...">
+                        <div className="relative m..." style={{...}}>
+                          <div className="constellat..." style={{...}} data-cursor="EXPLORE">
+                            <svg className="absolute i..." viewBox="0 0 100 100" preserveAspectRatio="none" ...>
+                              <defs>
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line
+                                x1={20.71038460926685}
+                                y1={70.93127875364829}
+                                x2={63.4291592909394}
++                               y2={24.522604514225243}
+-                               y2="24.522604514225247"
+                                stroke="rgba(11,15,36,0.08)"
+                                strokeWidth={0.25}
+                                vectorEffect="non-scaling-stroke"
+                              >
+                              <line>
+                              <line>
+                              <line>
+                              <line>
+                              <line
+                                x1={63.4291592909394}
++                               y1={24.522604514225243}
+-                               y1="24.522604514225247"
+                                x2={20.71038460926685}
+                                y2={70.93127875364829}
+                                stroke="rgba(11,15,36,0.08)"
+                                strokeWidth={0.25}
+                                vectorEffect="non-scaling-stroke"
+                              >
+                              <line
+                                x1={63.4291592909394}
++                               y1={24.522604514225243}
+-                               y1="24.522604514225247"
+                                x2={30.69563796912087}
+                                y2={40.30971586687202}
+                                stroke="rgba(11,15,36,0.08)"
+                                strokeWidth={0.25}
+                                vectorEffect="non-scaling-stroke"
+                              >
+                              <line>
+                              <line
+                                x1={30.69563796912087}
+                                y1={40.30971586687202}
+                                x2={63.4291592909394}
++                               y2={24.522604514225243}
+-                               y2="24.522604514225247"
+                                stroke="rgba(11,15,36,0.08)"
+                                strokeWidth={0.25}
+                                vectorEffect="non-scaling-stroke"
+                              >
+                            <div>
+                            <button>
+                            <button>
+                            <button>
+                            <button>
+                            <button>
+                            <button>
+                            <button>
+                            <button>
+                            <button
+                              type="button"
+                              className="cap-node absolute -translate-x-1/2 -translate-y-1/2"
+                              style={{
++                               left: "63.4291592909394%"
+-                               left: "63.4292%"
++                               top: "24.522604514225243%"
+-                               top: "24.5226%"
++                               transform: "translate(-50%, -50%) scale(1.21)"
+-                               transform: "translate(-50%, -50%) scale(1.21)"
++                               zIndex: 11
+-                               z-index: "11"
+                              }}
+                              onMouseEnter={function onMouseEnter}
+                              onMouseLeave={function onMouseLeave}
+                              onFocus={function onFocus}
+                              onBlur={function onBlur}
+                              onClick={function onClick}
+                              aria-label="Human-in-the-loop: Review, approve, and override decisions."
+                            >
+                            ...
+                        ...
+                  <UseCaseExplorer>
+                  <Approach>
+                  <Globe>
+                    <section id="company" ref={{current:null}} className="section-an..." style={{--tilt-x:"...", ...}}>
+                      <div>
+                      <div>
+                      <div className="mx-auto gr...">
+                        <div>
+                        <div className="relative m..." style={{...}}>
+                          <div ref={{current:null}} className="relative h..." style={{...}} data-cursor="EXPLORE">
+                            <svg viewBox="-200 -200 ..." className="absolute i..." aria-hidden="true">
+                              <defs>
+                              <circle>
+                              <ellipse>
+                              <ellipse>
+                              <ellipse>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={90.29508254896454}
+-                               cx="90.29508254896456"
+                                cy={104.24821002386635}
+                                r={0.7}
+                                fill="rgba(11,15,36,0.18)"
+                                opacity={0.3}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={-93.30567334549266}
+-                               cx="-93.30567334549269"
+                                cy={76.75417661097852}
+                                r={0.7}
+                                fill="rgba(11,15,36,0.18)"
+                                opacity={0.3}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={-114.2333883739583}
+-                               cx="-114.23338837395829"
+                                cy={49.26014319809069}
+                                r={1.4}
+                                fill="#6a4dff"
+                                opacity={0.7}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={-91.65558932983171}
+-                               cx="-91.65558932983168"
+                                cy={39.33174224343675}
+                                r={1.4}
+                                fill="#6a4dff"
+                                opacity={0.7}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={138.00746716483857}
+-                               cx="138.00746716483854"
+                                cy={27.87589498806682}
+                                r={1.4}
+                                fill="#6a4dff"
+                                opacity={0.7}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={-142.91665450907095}
+-                               cx="-142.91665450907098"
+                                cy={17.183770883054894}
+                                r={1.4}
+                                fill="#6a4dff"
+                                opacity={0.7}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={-109.89524638767436}
+-                               cx="-109.89524638767435"
+                                cy={8.78281622911695}
+                                r={0.7}
+                                fill="rgba(11,15,36,0.18)"
+                                opacity={0.3}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={121.01384655875619}
+-                               cx="121.0138465587562"
+                                cy={-5.727923627684959}
+                                r={0.7}
+                                fill="rgba(11,15,36,0.18)"
+                                opacity={0.3}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={118.97780501755719}
+-                               cx="118.97780501755717"
+                                cy={-82.1002386634845}
+                                r={1.4}
+                                fill="#6a4dff"
+                                opacity={0.7}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={-103.7778567456223}
+-                               cx="-103.77785674562232"
+                                cy={-85.15513126491648}
+                                r={0.7}
+                                fill="rgba(11,15,36,0.18)"
+                                opacity={0.3}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={-93.16680893370733}
+-                               cx="-93.16680893370736"
+                                cy={-118.75894988066825}
+                                r={1.4}
+                                fill="#6a4dff"
+                                opacity={0.7}
+                              >
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle>
+                              <circle
++                               cx={-28.075477018814944}
+-                               cx="-28.075477018814937"
+                                cy={-154.65393794749403}
+                                r={1.4}
+                                fill="#6a4dff"
+                                opacity={0.7}
+                              >
+                              ...
+                              ...
+                          ...
+                  ...
+                ...
+            ...
+          ...
+ 
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 266ms (next.js: 51ms, application-code: 216ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 128ms (next.js: 8ms, application-code: 120ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] Uncaught TypeError: Cannot read properties of null (reading 'alpha')
+    at EncommCore (components/webgl/EncommCore.tsx:334:9)
+    at EncommCoreLazy (components/sections/Hero.tsx:301:10)
+    at Hero (components/sections/Hero.tsx:182:13)
+    at Home (app\page.tsx:17:9)
+  332 |
+  333 |       {enablePost ? (
+> 334 |         <EffectComposer enableNormalPass={false}>
+      |         ^
+  335 |           <Bloom
+  336 |             intensity={0.55}
+  337 |             luminanceThreshold={0.55}
+[browser] Uncaught TypeError: Cannot read properties of null (reading 'alpha')
+    at EncommCore (components/webgl/EncommCore.tsx:301:5)
+    at EncommCoreLazy (components/sections/Hero.tsx:301:10)
+    at Hero (components/sections/Hero.tsx:182:13)
+    at Home (app\page.tsx:17:9)
+  299 |
+  300 |   return (
+> 301 |     <Canvas
+      |     ^
+  302 |       className="!absolute inset-0"
+  303 |       style={{ background: "transparent" }}
+  304 |       dpr={dpr}
+ GET / 200 in 146ms (next.js: 5ms, application-code: 141ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] Uncaught TypeError: Cannot read properties of null (reading 'alpha')
+    at EncommCore (components/webgl/EncommCore.tsx:334:9)
+    at EncommCoreLazy (components/sections/Hero.tsx:301:10)
+    at Hero (components/sections/Hero.tsx:182:13)
+    at Home (app\page.tsx:17:9)
+  332 |
+  333 |       {enablePost ? (
+> 334 |         <EffectComposer enableNormalPass={false}>
+      |         ^
+  335 |           <Bloom
+  336 |             intensity={0.55}
+  337 |             luminanceThreshold={0.55}
+[browser] Uncaught TypeError: Cannot read properties of null (reading 'alpha')
+    at EncommCore (components/webgl/EncommCore.tsx:301:5)
+    at EncommCoreLazy (components/sections/Hero.tsx:301:10)
+    at Hero (components/sections/Hero.tsx:182:13)
+    at Home (app\page.tsx:17:9)
+  299 |
+  300 |   return (
+> 301 |     <Canvas
+      |     ^
+  302 |       className="!absolute inset-0"
+  303 |       style={{ background: "transparent" }}
+  304 |       dpr={dpr}
+ GET / 200 in 132ms (next.js: 3ms, application-code: 129ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] Uncaught TypeError: Cannot read properties of null (reading 'alpha')
+    at EncommCore (components/webgl/EncommCore.tsx:334:9)
+    at EncommCoreLazy (components/sections/Hero.tsx:301:10)
+    at Hero (components/sections/Hero.tsx:182:13)
+    at Home (app\page.tsx:17:9)
+  332 |
+  333 |       {enablePost ? (
+> 334 |         <EffectComposer enableNormalPass={false}>
+      |         ^
+  335 |           <Bloom
+  336 |             intensity={0.55}
+  337 |             luminanceThreshold={0.55}
+[browser] Uncaught TypeError: Cannot read properties of null (reading 'alpha')
+    at EncommCore (components/webgl/EncommCore.tsx:301:5)
+    at EncommCoreLazy (components/sections/Hero.tsx:301:10)
+    at Hero (components/sections/Hero.tsx:182:13)
+    at Home (app\page.tsx:17:9)
+  299 |
+  300 |   return (
+> 301 |     <Canvas
+      |     ^
+  302 |       className="!absolute inset-0"
+  303 |       style={{ background: "transparent" }}
+  304 |       dpr={dpr}
+ GET / 200 in 212ms (next.js: 30ms, application-code: 182ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] Uncaught TypeError: Cannot read properties of null (reading 'alpha')
+    at EncommCore (components/webgl/EncommCore.tsx:334:9)
+    at EncommCoreLazy (components/sections/Hero.tsx:301:10)
+    at Hero (components/sections/Hero.tsx:182:13)
+    at Home (app\page.tsx:17:9)
+  332 |
+  333 |       {enablePost ? (
+> 334 |         <EffectComposer enableNormalPass={false}>
+      |         ^
+  335 |           <Bloom
+  336 |             intensity={0.55}
+  337 |             luminanceThreshold={0.55}
+[browser] Uncaught TypeError: Cannot read properties of null (reading 'alpha')
+    at EncommCore (components/webgl/EncommCore.tsx:301:5)
+    at EncommCoreLazy (components/sections/Hero.tsx:301:10)
+    at Hero (components/sections/Hero.tsx:182:13)
+    at Home (app\page.tsx:17:9)
+  299 |
+  300 |   return (
+> 301 |     <Canvas
+      |     ^
+  302 |       className="!absolute inset-0"
+  303 |       style={{ background: "transparent" }}
+  304 |       dpr={dpr}
+ GET / 200 in 119ms (next.js: 3ms, application-code: 117ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 130ms (next.js: 4ms, application-code: 126ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] Uncaught TypeError: Cannot read properties of null (reading 'alpha')
+    at EncommCore (components/webgl/EncommCore.tsx:334:9)
+    at EncommCoreLazy (components/sections/Hero.tsx:301:10)
+    at Hero (components/sections/Hero.tsx:182:13)
+    at Home (app\page.tsx:17:9)
+  332 |
+  333 |       {enablePost ? (
+> 334 |         <EffectComposer enableNormalPass={false}>
+      |         ^
+  335 |           <Bloom
+  336 |             intensity={0.55}
+  337 |             luminanceThreshold={0.55}
+[browser] Uncaught TypeError: Cannot read properties of null (reading 'alpha')
+    at EncommCore (components/webgl/EncommCore.tsx:301:5)
+    at EncommCoreLazy (components/sections/Hero.tsx:301:10)
+    at Hero (components/sections/Hero.tsx:182:13)
+    at Home (app\page.tsx:17:9)
+  299 |
+  300 |   return (
+> 301 |     <Canvas
+      |     ^
+  302 |       className="!absolute inset-0"
+  303 |       style={{ background: "transparent" }}
+  304 |       dpr={dpr}
+ GET / 200 in 136ms (next.js: 3ms, application-code: 133ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 124ms (next.js: 4ms, application-code: 120ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 133ms (next.js: 2ms, application-code: 131ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 136ms (next.js: 2ms, application-code: 133ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] Uncaught TypeError: Cannot read properties of null (reading 'alpha')
+    at EncommCore (components/webgl/EncommCore.tsx:334:9)
+    at EncommCoreLazy (components/sections/Hero.tsx:301:10)
+    at Hero (components/sections/Hero.tsx:182:13)
+    at Home (app\page.tsx:17:9)
+  332 |
+  333 |       {enablePost ? (
+> 334 |         <EffectComposer enableNormalPass={false}>
+      |         ^
+  335 |           <Bloom
+  336 |             intensity={0.55}
+  337 |             luminanceThreshold={0.55}
+[browser] Uncaught TypeError: Cannot read properties of null (reading 'alpha')
+    at EncommCore (components/webgl/EncommCore.tsx:301:5)
+    at EncommCoreLazy (components/sections/Hero.tsx:301:10)
+    at Hero (components/sections/Hero.tsx:182:13)
+    at Home (app\page.tsx:17:9)
+  299 |
+  300 |   return (
+> 301 |     <Canvas
+      |     ^
+  302 |       className="!absolute inset-0"
+  303 |       style={{ background: "transparent" }}
+  304 |       dpr={dpr}
+ GET / 200 in 1368ms (next.js: 544ms, application-code: 824ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 129ms (next.js: 3ms, application-code: 126ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 134ms (next.js: 3ms, application-code: 131ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 156ms (next.js: 6ms, application-code: 150ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 145ms (next.js: 3ms, application-code: 143ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 401ms (next.js: 3ms, application-code: 398ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 142ms (next.js: 3ms, application-code: 138ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 169ms (next.js: 2ms, application-code: 166ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 183ms (next.js: 3ms, application-code: 180ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 234ms (next.js: 10ms, application-code: 224ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 301ms (next.js: 4ms, application-code: 297ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+✓ Compiled in 184ms
+✓ Compiled in 62ms
+ GET / 200 in 404ms (next.js: 88ms, application-code: 316ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 124ms (next.js: 3ms, application-code: 121ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 166ms (next.js: 5ms, application-code: 161ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 160ms (next.js: 3ms, application-code: 157ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 19ms (next.js: 4ms, application-code: 15ms)
+ GET / 200 in 163ms (next.js: 14ms, application-code: 149ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 169ms (next.js: 3ms, application-code: 166ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 11ms (next.js: 3ms, application-code: 8ms)
+ GET / 200 in 230ms (next.js: 3ms, application-code: 226ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 194ms (next.js: 3ms, application-code: 191ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 181ms (next.js: 4ms, application-code: 178ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 10ms (next.js: 3ms, application-code: 7ms)
+ GET / 200 in 217ms (next.js: 3ms, application-code: 214ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 194ms (next.js: 3ms, application-code: 191ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 189ms (next.js: 4ms, application-code: 185ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 8ms (next.js: 3ms, application-code: 5ms)
+ GET / 200 in 258ms (next.js: 3ms, application-code: 255ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 205ms (next.js: 4ms, application-code: 201ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 153ms (next.js: 5ms, application-code: 148ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 127ms (next.js: 3ms, application-code: 125ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 15ms (next.js: 5ms, application-code: 10ms)
+ GET / 200 in 193ms (next.js: 3ms, application-code: 189ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 207ms (next.js: 3ms, application-code: 204ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 229ms (next.js: 3ms, application-code: 225ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 197ms (next.js: 3ms, application-code: 194ms)
+ GET / 200 in 147ms (next.js: 3ms, application-code: 144ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 156ms (next.js: 3ms, application-code: 152ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 12ms (next.js: 3ms, application-code: 8ms)
+ GET / 200 in 318ms (next.js: 5ms, application-code: 313ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 190ms (next.js: 5ms, application-code: 184ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 353ms (next.js: 4ms, application-code: 349ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 171ms (next.js: 4ms, application-code: 167ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 176ms (next.js: 4ms, application-code: 173ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 236ms (next.js: 3ms, application-code: 233ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 137ms (next.js: 2ms, application-code: 135ms)
+[browser] Received `false` for a non-boolean attribute `initial`.
+
+If you want to write it to the DOM, pass a string instead: initial="false" or initial={value.toString()}.
+
+If you used to conditionally omit it with initial={condition && value}, pass initial={condition ? value : undefined} instead. 
+ GET / 200 in 169ms (next.js: 3ms, application-code: 166ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 128ms (next.js: 3ms, application-code: 126ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 135ms (next.js: 3ms, application-code: 133ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 124ms (next.js: 2ms, application-code: 121ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 127ms (next.js: 3ms, application-code: 124ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+ GET / 200 in 138ms (next.js: 2ms, application-code: 136ms)
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.
+[browser] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.

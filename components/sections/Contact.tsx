@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { finalCta, projectTypeOptions } from "@/content/site-content";
 import type { ContactFormData } from "@/content/site-content";
 import {
@@ -24,11 +24,24 @@ const EMPTY: ContactFormData = {
   consent: false,
 };
 
+const FIELD_ORDER: (keyof ContactFormData)[] = [
+  "name",
+  "email",
+  "company",
+  "projectType",
+  "message",
+  "consent",
+];
+
 export function Contact() {
   const [data, setData] = useState<ContactFormData>(EMPTY);
   const [errors, setErrors] = useState<FieldErrors>({});
-  const [touched, setTouched] = useState<Partial<Record<keyof ContactFormData, boolean>>>({});
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [touched, setTouched] = useState<
+    Partial<Record<keyof ContactFormData, boolean>>
+  >({});
+  const [status, setStatus] = useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
   const [feedback, setFeedback] = useState<string>("");
   const [demo, setDemo] = useState(false);
 
@@ -39,35 +52,35 @@ export function Contact() {
       setErrors((e) => ({ ...e, [key]: err ?? undefined }));
     }
   }
-
   function blur(key: keyof ContactFormData) {
     setTouched((t) => ({ ...t, [key]: true }));
     const err = validateField(key, data[key]);
     setErrors((e) => ({ ...e, [key]: err ?? undefined }));
   }
 
+  // completion progress 0..1
+  const progress = useMemo(() => {
+    let done = 0;
+    FIELD_ORDER.forEach((k) => {
+      const v = data[k];
+      if (k === "consent" ? v : String(v).trim().length > 0) done++;
+    });
+    return done / FIELD_ORDER.length;
+  }, [data]);
+
+  const allValid = useMemo(() => !hasErrors(validateAll(data)), [data]);
+  const systemReady = progress === 1 && allValid;
+
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     const allErrors = validateAll(data);
     setErrors(allErrors);
-    setTouched({
-      name: true,
-      email: true,
-      company: true,
-      projectType: true,
-      message: true,
-      consent: true,
-    });
+    setTouched(Object.fromEntries(FIELD_ORDER.map((k) => [k, true])));
     if (hasErrors(allErrors)) {
-      // focus first invalid
       const first = Object.keys(allErrors)[0];
-      if (first) {
-        const el = document.getElementById(`contact-${first}`);
-        el?.focus();
-      }
+      if (first) document.getElementById(`contact-${first}`)?.focus();
       return;
     }
-
     setStatus("submitting");
     const result = await submitContact(data);
     if (result.ok) {
@@ -85,19 +98,31 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="section-anchor relative overflow-hidden bg-surface-soft py-24 md:py-32"
+      className="section-anchor relative overflow-hidden py-24 md:py-36"
     >
-      <div className="spectral-wash pointer-events-none absolute inset-0 opacity-70" aria-hidden="true" />
-      <div className="grid-bg pointer-events-none absolute inset-0 opacity-30" aria-hidden="true" />
+      <div className="spectral-wash pointer-events-none absolute inset-0 opacity-70" />
+      <div className="grid-bg pointer-events-none absolute inset-0 opacity-30" />
 
-      <div className="relative mx-auto max-w-[1320px] px-4 md:px-8">
+      {/* oversized background headline */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-12 select-none text-center"
+      >
+        <h2 className="kinetic text-[clamp(2.6rem,9vw,9rem)] leading-none text-ink/[0.06]">
+          WHAT SHOULD AI DO
+          <br />
+          FOR YOUR ORGANIZATION?
+        </h2>
+      </div>
+
+      <div className="relative mx-auto max-w-[1400px] px-4 md:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
           {/* left — invitation */}
-          <div>
+          <div className="relative">
             <Reveal variant="fade-up">
               <Eyebrow index="C—02">Contact</Eyebrow>
             </Reveal>
-            <h2 className="display-1 mt-5 text-[clamp(2rem,4.6vw,3.4rem)] text-ink">
+            <h2 className="kinetic mt-5 text-[clamp(2rem,5vw,3.6rem)] text-ink">
               <LineMask>What should AI do</LineMask>
               <LineMask>
                 <span className="text-spectral">for your organization?</span>
@@ -108,24 +133,48 @@ export function Contact() {
                 {finalCta.copy}
               </p>
             </Reveal>
+
+            {/* system status panel */}
             <Reveal variant="fade-up" delay={0.18}>
-              <div className="mt-8 flex flex-col gap-2 text-[13px] text-faint">
-                <div className="flex items-center gap-2">
-                  <span className="status-dot !h-1.5 !w-1.5" />
-                  We'll get back to you within two business days.
+              <div className="mt-8 rounded-2xl border border-line glass p-4">
+                <div className="mb-2 flex items-center justify-between">
+                  <span className="eyebrow">System readiness</span>
+                  <span
+                    className={cn(
+                      "font-mono text-[11px]",
+                      systemReady ? "text-violet" : "text-faint",
+                    )}
+                  >
+                    {systemReady ? "● READY" : "○ CONFIGURING"}
+                  </span>
                 </div>
-                {isDemoMode ? (
-                  <div className="rounded-lg border border-line bg-surface px-3 py-2 text-[11.5px] text-muted">
-                    Demo mode: no contact endpoint is configured. Submissions are
-                    validated but not delivered. Set{" "}
-                    <code className="rounded bg-surface-soft px-1 py-0.5 font-mono text-[10.5px]">
-                      NEXT_PUBLIC_CONTACT_ENDPOINT
-                    </code>{" "}
-                    to enable.
-                  </div>
-                ) : null}
+                {/* progress bar */}
+                <div className="h-1.5 w-full overflow-hidden rounded-full bg-line">
+                  <div
+                    className="h-full rounded-full bg-gradient-to-r from-violet to-cyan transition-all duration-500"
+                    style={{ width: `${progress * 100}%` }}
+                  />
+                </div>
+                <div className="mt-2 flex justify-between font-mono text-[9px] text-faint">
+                  <span>{Math.round(progress * 100)}% complete</span>
+                  <span>{Object.keys(errors).length} issues</span>
+                </div>
               </div>
             </Reveal>
+
+            {isDemoMode ? (
+              <Reveal variant="fade-up" delay={0.24}>
+                <div className="mt-4 rounded-lg border border-line bg-white/60 px-3 py-2 text-[11.5px] text-muted">
+                  <strong className="text-ink">Demo mode.</strong> No contact
+                  endpoint configured — submissions validate locally but are
+                  not sent. Set{" "}
+                  <code className="rounded bg-surface-soft px-1 font-mono text-[10.5px]">
+                    NEXT_PUBLIC_CONTACT_ENDPOINT
+                  </code>{" "}
+                  to enable.
+                </div>
+              </Reveal>
+            ) : null}
           </div>
 
           {/* right — form */}
@@ -134,8 +183,19 @@ export function Contact() {
               noValidate
               onSubmit={onSubmit}
               aria-label="Contact ENCOMM"
-              className="rounded-[28px] border border-line bg-surface p-6 shadow-lift md:p-8"
+              className="relative overflow-hidden rounded-[28px] border border-line glass-strong p-6 shadow-lift md:p-8"
             >
+              {/* corner technical marks */}
+              <div className="coord pointer-events-none absolute right-4 top-4 text-right">
+                <div>FORM · v1.0</div>
+                <div>STATE · {status.toUpperCase()}</div>
+              </div>
+
+              <div className="mb-6 flex items-center gap-2">
+                <span className="status-dot" />
+                <span className="eyebrow">Command interface</span>
+              </div>
+
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <Field
                   label="Name"
@@ -234,14 +294,18 @@ export function Contact() {
                   label="What should AI do for you?"
                   required
                   error={touched.message ? errors.message : undefined}
-                  hint="Tell us about the problem, the systems involved, and the outcome you're after."
+                  hint="The problem, the systems involved, the outcome you're after."
                 >
                   {({ invalid }) => (
                     <textarea
                       id="contact-message"
                       name="message"
                       rows={5}
-                      className={cn(fieldStyles, "resize-y", invalid && fieldErrorStyles)}
+                      className={cn(
+                        fieldStyles,
+                        "resize-y",
+                        invalid && fieldErrorStyles,
+                      )}
                       value={data.message}
                       onChange={(e) => set("message", e.target.value)}
                       onBlur={() => blur("message")}
@@ -266,7 +330,6 @@ export function Contact() {
                   <span>
                     I agree to be contacted about my enquiry and to ENCOMM's
                     privacy practices.{" "}
-                    {/* PLACEHOLDER — link to verified privacy policy */}
                     <a
                       href="/privacy"
                       className="text-violet underline-offset-2 hover:underline"
@@ -287,22 +350,26 @@ export function Contact() {
                 <button
                   type="submit"
                   disabled={status === "submitting"}
+                  data-cursor="OPEN"
                   className={cn(
-                    "group relative inline-flex h-13 items-center justify-center gap-2 rounded-full px-7 py-3.5 font-display text-[15px] font-medium text-white transition-all duration-300",
-                    "bg-ink hover:bg-ink-soft shadow-[0_8px_30px_-12px_rgba(16,20,38,0.5)]",
-                    status === "submitting" && "opacity-70 cursor-wait",
+                    "group relative inline-flex h-13 items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-3.5 font-display text-[15px] font-medium text-white transition-all duration-300",
+                    systemReady
+                      ? "bg-gradient-to-r from-violet to-violet-deep shadow-glow"
+                      : "bg-ink hover:bg-ink-soft shadow-[0_8px_30px_-12px_rgba(16,20,38,0.5)]",
+                    status === "submitting" && "cursor-wait opacity-70",
                   )}
                 >
+                  {/* shimmer */}
                   <span
                     aria-hidden="true"
-                    className="pointer-events-none absolute -inset-0.5 rounded-full opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-60"
-                    style={{
-                      background:
-                        "linear-gradient(100deg, var(--color-violet), var(--color-magenta), var(--color-cyan))",
-                    }}
+                    className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-700 group-hover:translate-x-full"
                   />
                   <span className="relative z-10">
-                    {status === "submitting" ? "Sending…" : finalCta.cta}
+                    {status === "submitting"
+                      ? "Transmitting…"
+                      : systemReady
+                        ? "System ready — start conversation"
+                        : finalCta.cta}
                   </span>
                 </button>
 
@@ -314,7 +381,7 @@ export function Contact() {
                     <span aria-hidden="true">✓</span>
                     {feedback}
                     {demo ? (
-                      <span className="ml-1 rounded bg-surface-soft px-1.5 py-0.5 text-[10.5px] uppercase tracking-wider text-faint">
+                      <span className="ml-1 rounded bg-surface-soft px-1.5 py-0.5 font-mono text-[10.5px] uppercase tracking-wider text-faint">
                         demo
                       </span>
                     ) : null}

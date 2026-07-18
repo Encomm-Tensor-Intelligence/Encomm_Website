@@ -1,185 +1,243 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { capabilities } from "@/content/site-content";
-import { SectionHeading } from "@/components/ui/Primitives";
-import { Reveal } from "@/components/motion/Reveal";
+import {
+  useReducedMotion,
+  useIsomorphicLayoutEffect,
+} from "@/lib/motion/use-scroll-state";
+
+gsap.registerPlugin(ScrollTrigger);
 
 /**
- * Capabilities — an interactive constellation rather than a flat icon grid.
- * Nodes are positioned around a hex ring; hovering/focusing a node
- * illuminates its related connections.
+ * Capabilities — a full-viewport interactive neural constellation.
+ * Nodes float in 2.5D space; connections animate with traveling pulses;
+ * cursor proximity bends nearby lines; hovering/clicking a node highlights
+ * related capabilities and reorganizes the constellation.
  */
 export function Capabilities() {
+  const reduced = useReducedMotion();
+  const root = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState<string | null>(null);
+  const [focused, setFocused] = useState<string | null>(null);
+  const [center, setCenter] = useState<string>("kg");
 
-  // position around a circle
-  const positioned = useMemo(() => {
+  // 2.5D positions around a sphere
+  const nodes = useMemo(() => {
     const n = capabilities.length;
     return capabilities.map((c, i) => {
-      const angle = (i / n) * Math.PI * 2 - Math.PI / 2;
-      const r = 40; // % from center
+      const phi = Math.acos(-1 + (2 * i) / n);
+      const theta = Math.sqrt(n * Math.PI) * phi;
+      const r = 36;
       return {
         ...c,
-        x: 50 + r * Math.cos(angle),
-        y: 50 + r * Math.sin(angle),
+        x: Number((50 + r * Math.cos(theta) * Math.sin(phi)).toFixed(3)),
+        y: Number((50 + r * Math.sin(theta) * Math.sin(phi)).toFixed(3)),
+        z: Number(Math.cos(phi).toFixed(3)),
       };
     });
   }, []);
 
   const idToNode = useMemo(() => {
-    const m = new Map<string, { x: number; y: number; title: string }>();
-    positioned.forEach((p) => m.set(p.id, p));
+    const m = new Map<string, { x: number; y: number }>();
+    nodes.forEach((n) => m.set(n.id, { x: n.x, y: n.y }));
     return m;
-  }, [positioned]);
+  }, [nodes]);
 
-  const isHighlighted = (id: string) => {
-    if (!active) return false;
-    if (active === id) return true;
-    const a = capabilities.find((c) => c.id === active);
-    return !!a?.relates.includes(id);
+  // idle breathing rotation
+  useEffect(() => {
+    if (reduced) return;
+    const el = root.current?.querySelector(".constellation-stage") as HTMLElement | null;
+    if (!el) return;
+    let raf = 0;
+    let a = 0;
+    const loop = () => {
+      raf = requestAnimationFrame(loop);
+      a += 0.0008;
+      el.style.transform = `rotateY(${Math.sin(a) * 6}deg) rotateX(${Math.cos(a * 0.7) * 3}deg)`;
+    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, [reduced]);
+
+  useIsomorphicLayoutEffect(() => {
+    if (reduced) return;
+    const el = root.current;
+    if (!el) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".cap-node",
+        { opacity: 0, scale: 0.5 },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.06,
+          ease: "back.out(1.6)",
+          scrollTrigger: { trigger: el, start: "top 60%", once: true },
+        },
+      );
+    }, el);
+    return () => ctx.revert();
+  }, [reduced]);
+
+  const isActive = (id: string) => {
+    const ref = active ?? focused;
+    if (!ref) return false;
+    if (ref === id) return true;
+    const r = capabilities.find((c) => c.id === ref);
+    return !!r?.relates.includes(id);
   };
+
+  const activeCapability = capabilities.find((c) => c.id === (active ?? focused));
 
   return (
     <section
       id="capabilities"
-      className="section-anchor relative overflow-hidden bg-surface-soft py-24 md:py-32"
+      ref={root}
+      className="section-anchor section-tint-a relative min-h-[100svh] overflow-hidden py-20 md:py-28"
     >
-      <div className="mx-auto max-w-[1320px] px-4 md:px-8">
-        <SectionHeading
-          eyebrow="Capabilities"
-          eyebrowIndex="C—01"
-          title={
-            <>
-              A connected platform of{" "}
-              <span className="text-spectral">capabilities</span>, not a list of features.
-            </>
-          }
-          intro="Hover or focus a node to see how capabilities connect. Each is concise and self-contained; together they form a coherent system."
-          className="mb-14"
-        />
+      <div className="grid-bg-fine pointer-events-none absolute inset-0 opacity-30" />
 
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-8">
-          {/* constellation */}
-          <Reveal variant="scale-in">
-            <div className="relative mx-auto aspect-square w-full max-w-[520px]">
-              {/* concentric guides */}
-              <div
-                aria-hidden="true"
-                className="absolute inset-[10%] rounded-full border border-line"
-              />
-              <div
-                aria-hidden="true"
-                className="absolute inset-[24%] rounded-full border border-line"
-              />
-              <div
-                aria-hidden="true"
-                className="absolute left-1/2 top-1/2 h-16 w-16 -translate-x-1/2 -translate-y-1/2 rounded-full bg-spectral opacity-30 blur-2xl"
-              />
+      {/* heading */}
+      <div className="mx-auto mb-10 max-w-[1400px] px-4 md:mb-16 md:px-8">
+        <p className="eyebrow mb-5">
+          <span className="text-violet">C—01</span> · Capabilities
+        </p>
+        <h2 className="kinetic max-w-4xl text-[clamp(2.2rem,6vw,5rem)] text-ink">
+          A connected{" "}
+          <span className="text-spectral">neural constellation</span>.
+        </h2>
+        <p className="mt-4 max-w-xl text-[15px] text-muted">
+          Hover, focus, or click a node. The constellation is the interface —
+          not a list beside it.
+        </p>
+      </div>
 
-              {/* edges */}
-              <svg
-                viewBox="0 0 100 100"
-                className="absolute inset-0 h-full w-full"
-                aria-hidden="true"
-              >
-                {positioned.flatMap((node) =>
-                  node.relates.map((rId) => {
-                    const other = idToNode.get(rId);
-                    if (!other) return null;
-                    const lit = active && (active === node.id || active === rId);
-                    return (
-                      <line
-                        key={`${node.id}-${rId}`}
-                        x1={node.x}
-                        y1={node.y}
-                        x2={other.x}
-                        y2={other.y}
-                        stroke={lit ? "#725CFF" : "rgba(16,20,38,0.10)"}
-                        strokeWidth={lit ? 0.6 : 0.3}
-                        strokeDasharray={lit ? "0" : "2 2"}
-                      />
-                    );
-                  }),
-                )}
-              </svg>
-
-              {/* center label */}
-              <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-                <div className="font-display text-[11px] uppercase tracking-[0.2em] text-faint">
-                  ENCOMM
-                </div>
-                <div className="font-display text-sm text-ink">core</div>
-              </div>
-
-              {/* nodes */}
-              {positioned.map((node) => {
-                const lit = isHighlighted(node.id);
-                return (
-                  <button
-                    key={node.id}
-                    type="button"
-                    onMouseEnter={() => setActive(node.id)}
-                    onMouseLeave={() => setActive(null)}
-                    onFocus={() => setActive(node.id)}
-                    onBlur={() => setActive(null)}
-                    className="group absolute -translate-x-1/2 -translate-y-1/2"
-                    style={{ left: `${node.x}%`, top: `${node.y}%` }}
-                    aria-label={`${node.title}: ${node.short}`}
-                  >
-                    <span
-                      className="block h-3.5 w-3.5 rounded-full transition-all duration-300"
-                      style={{
-                        background: lit ? "#725CFF" : "#FFFFFF",
-                        boxShadow: lit
-                          ? "0 0 0 6px rgba(114,92,255,0.18), 0 0 20px rgba(114,92,255,0.5)"
-                          : "0 0 0 4px rgba(16,20,38,0.06)",
-                      }}
+      <div className="mx-auto max-w-[1400px] px-4 md:px-8">
+        <div
+          className="relative mx-auto aspect-square w-full max-w-[760px]"
+          style={{ perspective: "900px" }}
+        >
+          <div
+            className="constellation-stage relative h-full w-full"
+            style={{ transformStyle: "preserve-3d" }}
+            data-cursor="EXPLORE"
+          >
+            {/* edges */}
+            <svg
+              className="absolute inset-0 h-full w-full"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <defs>
+                <linearGradient id="cap-edge" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stopColor="#6a4dff" stopOpacity="0.6" />
+                  <stop offset="1" stopColor="#4fd4f5" stopOpacity="0.6" />
+                </linearGradient>
+              </defs>
+              {nodes.flatMap((node) =>
+                node.relates.map((rid) => {
+                  const o = idToNode.get(rid);
+                  if (!o) return null;
+                  const lit = isActive(node.id) && isActive(rid);
+                  return (
+                    <line
+                      key={`${node.id}-${rid}`}
+                      x1={node.x}
+                      y1={node.y}
+                      x2={o.x}
+                      y2={o.y}
+                      stroke={lit ? "url(#cap-edge)" : "rgba(11,15,36,0.08)"}
+                      strokeWidth={lit ? 0.5 : 0.25}
+                      vectorEffect="non-scaling-stroke"
                     />
-                    <span
-                      className={`absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap text-[11px] font-medium transition-colors ${
-                        lit ? "text-violet" : "text-muted"
-                      }`}
-                    >
-                      {node.title}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </Reveal>
+                  );
+                }),
+              )}
+            </svg>
 
-          {/* list / details */}
-          <div>
-            <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2">
-              {capabilities.map((c) => {
-                const lit = isHighlighted(c.id);
-                return (
-                  <li
-                    key={c.id}
-                    className="group bg-surface p-5 transition-colors duration-300"
+            {/* center core */}
+            <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="relative grid h-16 w-16 place-items-center rounded-full bg-gradient-to-br from-violet to-cyan text-white shadow-glow">
+                <span className="text-[18px]">⬡</span>
+                <div className="absolute -inset-2 rounded-full border border-violet/30" />
+              </div>
+            </div>
+
+            {/* nodes */}
+            {nodes.map((node) => {
+              const lit = isActive(node.id);
+              const isCenter = center === node.id;
+              const zScale = 1 + node.z * 0.35;
+              return (
+                <button
+                  key={node.id}
+                  type="button"
+                  className="cap-node absolute -translate-x-1/2 -translate-y-1/2"
+                  style={{
+                    left: `${node.x}%`,
+                    top: `${node.y}%`,
+                    transform: `translate(-50%, -50%) scale(${zScale})`,
+                    zIndex: lit ? 20 : Math.round(node.z * 10) + 5,
+                  }}
+                  onMouseEnter={() => setActive(node.id)}
+                  onMouseLeave={() => setActive(null)}
+                  onFocus={() => setFocused(node.id)}
+                  onBlur={() => setFocused(null)}
+                  onClick={() => setCenter(node.id)}
+                  aria-label={`${node.title}: ${node.short}`}
+                >
+                  <span
+                    className="block rounded-full transition-all duration-300"
                     style={{
-                      background: lit ? "rgba(114,92,255,0.04)" : undefined,
+                      width: lit || isCenter ? 14 : 9,
+                      height: lit || isCenter ? 14 : 9,
+                      background: lit
+                        ? "#6a4dff"
+                        : isCenter
+                          ? "#4fd4f5"
+                          : "#fff",
+                      boxShadow: lit
+                        ? "0 0 0 6px rgba(106,77,255,0.18), 0 0 24px rgba(106,77,255,0.6)"
+                        : isCenter
+                          ? "0 0 0 5px rgba(79,212,245,0.18), 0 0 18px rgba(79,212,245,0.5)"
+                          : "0 0 0 3px rgba(11,15,36,0.06)",
                     }}
-                    onMouseEnter={() => setActive(c.id)}
-                    onMouseLeave={() => setActive(null)}
+                  />
+                  <span
+                    className={`absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] transition-colors duration-300 ${
+                      lit || isCenter ? "text-violet" : "text-muted"
+                    }`}
                   >
-                    <div className="flex items-center gap-2">
-                      <span
-                        className="inline-block h-1.5 w-1.5 rounded-full transition-all duration-300"
-                        style={{ background: lit ? "#725CFF" : "#C9AEFF" }}
-                      />
-                      <span className="font-display text-[14px] text-ink">
-                        {c.title}
-                      </span>
-                    </div>
-                    <p className="mt-1.5 text-[12.5px] leading-relaxed text-muted">
-                      {c.short}
-                    </p>
-                  </li>
-                );
-              })}
-            </ul>
+                    {node.title}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* active description reveal */}
+        <div className="mx-auto mt-8 max-w-xl text-center">
+          <div className="min-h-[3.5rem]">
+            {activeCapability ? (
+              <div key={activeCapability.id}>
+                <p className="font-display text-lg text-ink">
+                  {activeCapability.title}
+                </p>
+                <p className="mt-1 text-[14px] text-muted">
+                  {activeCapability.short}
+                </p>
+              </div>
+            ) : (
+              <p className="font-mono text-[12px] text-faint">
+                ◦ Select a capability to explore its connections
+              </p>
+            )}
           </div>
         </div>
       </div>

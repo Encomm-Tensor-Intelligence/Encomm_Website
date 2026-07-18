@@ -5,7 +5,7 @@ import { Systems } from "@/components/sections/Systems";
 import { Capabilities } from "@/components/sections/Capabilities";
 import { UseCaseExplorer } from "@/components/sections/UseCases";
 import { Approach } from "@/components/sections/Approach";
-import { Trust } from "@/components/sections/Trust";
+import { Globe } from "@/components/sections/Globe";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/sections/Footer";
 
@@ -20,7 +20,7 @@ export default function Home() {
         <Capabilities />
         <UseCaseExplorer />
         <Approach />
-        <Trust />
+        <Globe />
         <Contact />
       </main>
       <Footer />

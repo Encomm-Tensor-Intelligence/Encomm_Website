@@ -1,28 +1,53 @@
+"use client";
+
 import Link from "next/link";
 import { company, contact, footerNav } from "@/content/site-content";
 import { BrandMark } from "@/components/brand/BrandMark";
+import { motion } from "@/lib/motion/motion-store";
+import { useEffect, useState } from "react";
 
-/**
- * Footer — uses the original mark, navigation, and only verified channels.
- * Legal placeholders clearly marked for later completion in content config.
- */
 export function Footer() {
   const year = new Date().getFullYear();
+  const [coord, setCoord] = useState("LAT 37.98 · LON 23.72");
+
+  // tiny live readout: show active section + time
+  useEffect(() => {
+    const id = window.setInterval(() => {
+      const now = new Date();
+      const t = `${String(now.getUTCHours()).padStart(2, "0")}:${String(
+        now.getUTCMinutes(),
+      ).padStart(2, "0")}:${String(now.getUTCSeconds()).padStart(2, "0")} UTC`;
+      setCoord(`ATHENS · ${t} · ${motion.activeSection.toUpperCase()}`);
+    }, 1000);
+    return () => window.clearInterval(id);
+  }, []);
 
   return (
     <footer className="relative overflow-hidden border-t border-line bg-paper">
-      <div className="grid-bg pointer-events-none absolute inset-0 opacity-30" aria-hidden="true" />
-      <div className="relative mx-auto max-w-[1320px] px-4 py-16 md:px-8 md:py-20">
-        <div className="grid grid-cols-2 gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div className="grid-bg-fine pointer-events-none absolute inset-0 opacity-30" />
+
+      {/* big ghost wordmark */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 -bottom-8 select-none text-center"
+      >
+        <span className="kinetic text-[clamp(6rem,22vw,20rem)] leading-none text-ink/[0.05]">
+          ENCOMM
+        </span>
+      </div>
+
+      <div className="relative mx-auto max-w-[1400px] px-4 py-16 md:px-8 md:py-20">
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-[1.6fr_1fr_1fr_1fr]">
           {/* brand */}
           <div className="col-span-2 md:col-span-1">
             <Link
               href="#top"
+              data-cursor="VIEW"
               className="flex items-center gap-2.5"
               aria-label="ENCOMM — back to top"
             >
               <BrandMark className="h-7 w-7" />
-              <span className="font-display text-[17px] font-semibold tracking-[0.18em] text-ink">
+              <span className="font-display text-[15px] font-semibold tracking-[0.2em] text-ink">
                 ENCOMM
               </span>
             </Link>
@@ -30,8 +55,7 @@ export function Footer() {
               {company.descriptor}. {company.country} → Global.
             </p>
 
-            {/* Verified contact channels only */}
-            <div className="mt-5 flex flex-col gap-2 text-[12.5px] text-faint">
+            <div className="mt-5 flex flex-col gap-2 text-[12px] text-faint">
               {contact.publicEmail ? (
                 <a
                   href={`mailto:${contact.publicEmail}`}
@@ -64,7 +88,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* nav groups */}
           {footerNav.map((group) => (
             <nav
               key={group.title}
@@ -77,9 +100,12 @@ export function Footer() {
                   <li key={item.label}>
                     <Link
                       href={item.href}
-                      className="text-[13.5px] text-muted transition-colors hover:text-ink"
+                      data-cursor="VIEW"
+                      className="group inline-flex items-center gap-1 text-[13.5px] text-muted transition-colors hover:text-ink"
                     >
-                      {item.label}
+                      <span className="transition-transform group-hover:translate-x-0.5">
+                        {item.label}
+                      </span>
                     </Link>
                   </li>
                 ))}
@@ -89,15 +115,12 @@ export function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-line pt-6 text-[12px] text-faint md:flex-row md:items-center">
-          <div>
-            © {year} {company.legalName}. All rights reserved.
-          </div>
+          <div>© {year} {company.legalName}. All rights reserved.</div>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-            <span className="inline-flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-1.5 font-mono">
               <span className="status-dot !h-1.5 !w-1.5" />
-              Recognized member of Elevate Greece
+              {coord}
             </span>
-            {/* PLACEHOLDER — verified privacy/terms links before launch */}
             <Link href="/privacy" className="hover:text-ink">
               Privacy
             </Link>

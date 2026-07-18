@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { spaceGrotesk, inter } from "@/lib/fonts";
 import { company } from "@/content/site-content";
-import { SmoothScrollProvider } from "@/components/motion/SmoothScrollProvider";
+import { MotionProvider } from "@/components/motion/MotionProvider";
+import GlobalField from "@/components/webgl/GlobalField";
+import CustomCursor from "@/components/ui/CustomCursor";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -127,7 +129,11 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        <MotionProvider>
+          <GlobalField />
+          <CustomCursor />
+          <div className="relative z-10">{children}</div>
+        </MotionProvider>
       </body>
     </html>
   );
