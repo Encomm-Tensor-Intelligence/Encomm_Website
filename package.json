@@ -1,0 +1,48 @@
+{
+  "name": "encomm-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ENCOMM — Enterprise AI. LUMINOUS INTELLIGENCE marketing site.",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "qa:shoot": "node scripts/qa-screenshots.mjs"
+  },
+  "dependencies": {
+    "next": "16.2.10",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "gsap": "3.15.0",
+    "lenis": "1.3.25",
+    "three": "0.185.1",
+    "@react-three/fiber": "9.6.1",
+    "@react-three/drei": "10.7.7",
+    "clsx": "2.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "22.14.0",
+    "@types/react": "19.2.0",
+    "@types/react-dom": "19.2.0",
+    "@types/three": "0.185.1",
+    "typescript": "5.8.3",
+    "tailwindcss": "4.3.3",
+    "@tailwindcss/postcss": "4.3.3",
+    "postcss": "8.5.6",
+    "autoprefixer": "10.4.21",
+    "eslint": "9.32.0",
+    "eslint-config-next": "16.2.10",
+    "vitest": "4.1.10",
+    "jsdom": "26.1.0",
+    "@playwright/test": "1.61.1",
+    "sharp": "0.35.3",
+    "@eslint/eslintrc": "3.3.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

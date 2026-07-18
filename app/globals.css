@@ -1,0 +1,250 @@
+@import "tailwindcss";
+
+/* ============================================================
+   ENCOMM — LUMINOUS INTELLIGENCE design tokens
+   White / pearl surfaces · spectral violet/lilac/cyan/magenta
+   Dark navy ink for type and small contrast only.
+   ============================================================ */
+
+@theme {
+  /* Surface palette — ~88% light */
+  --color-paper: #f7f8fc;
+  --color-surface: #ffffff;
+  --color-surface-soft: #f0f2fa;
+  --color-surface-ice: #eef0f8;
+
+  /* Ink */
+  --color-ink: #101426;
+  --color-ink-soft: #2a3050;
+  --color-muted: #626a7f;
+  --color-faint: #9aa1b5;
+
+  /* Spectral accent */
+  --color-violet: #725cff;
+  --color-violet-deep: #5e48d6;
+  --color-lilac: #c9aeff;
+  --color-cyan: #66d7f5;
+  --color-magenta: #e7a8f5;
+
+  /* Lines */
+  --color-line: rgba(16, 20, 38, 0.1);
+  --color-line-strong: rgba(16, 20, 38, 0.16);
+
+  /* Typography */
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", ui-monospace, monospace;
+
+  /* Radius */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 36px;
+
+  /* Shadows — very soft */
+  --shadow-soft: 0 1px 2px rgba(16, 20, 38, 0.04), 0 8px 24px rgba(16, 20, 38, 0.06);
+  --shadow-lift: 0 2px 4px rgba(16, 20, 38, 0.05), 0 24px 60px rgba(16, 20, 38, 0.1);
+  --shadow-glow: 0 0 0 1px rgba(114, 92, 255, 0.18), 0 18px 60px rgba(114, 92, 255, 0.18);
+
+  /* Easing */
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* Load fonts locally via @next/font; these @font-face declarations are
+   a fallback for environments where the Next font optimization is bypassed. */
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300 700;
+  src: local("Space Grotesk");
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: local("Inter");
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-feature-settings: "ss01", "cv01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(114, 92, 255, 0.18);
+  color: var(--color-ink);
+}
+
+/* Focus visibility */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-violet);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   Utility surfaces
+   ============================================================ */
+.surface {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-lg);
+}
+.surface-soft {
+  background: linear-gradient(180deg, var(--color-surface-soft), var(--color-paper));
+}
+
+/* subtle spatial grid background */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(16, 20, 38, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 20, 38, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 0%, transparent 78%);
+  mask-image: radial-gradient(ellipse at center, #000 0%, transparent 78%);
+}
+
+/* spectral wash */
+.spectral-wash {
+  background:
+    radial-gradient(60% 50% at 18% 20%, rgba(114, 92, 255, 0.10), transparent 70%),
+    radial-gradient(50% 45% at 88% 25%, rgba(102, 215, 245, 0.10), transparent 70%),
+    radial-gradient(55% 50% at 60% 95%, rgba(231, 168, 245, 0.10), transparent 70%);
+}
+
+/* thin data path line */
+.data-line {
+  background: linear-gradient(90deg, transparent, var(--color-violet) 30%, var(--color-cyan) 70%, transparent);
+}
+
+/* ============================================================
+   Type helpers
+   ============================================================ */
+.font-display { font-family: var(--font-display); }
+.font-mono { font-family: var(--font-mono); }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.display-1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 0.98;
+}
+
+/* gradient text used for accent words */
+.text-spectral {
+  background: linear-gradient(100deg, var(--color-violet) 0%, var(--color-magenta) 50%, var(--color-cyan) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* line-mask reveal */
+.line-mask {
+  display: block;
+  overflow: hidden;
+}
+.line-mask > .line-inner {
+  display: block;
+  transform: translateY(110%);
+  will-change: transform;
+}
+
+/* magnetic button base */
+.magnetic {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.35s var(--ease-out-quint);
+  will-change: transform;
+}
+
+/* glass chip */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--color-line);
+  font-size: 11.5px;
+  color: var(--color-ink-soft);
+  backdrop-filter: blur(6px);
+}
+
+/* shimmering status dot */
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--color-violet);
+  box-shadow: 0 0 0 4px rgba(114, 92, 255, 0.15);
+}
+
+/* canvas-fallback decorative container */
+.core-fallback {
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.95) 0%, rgba(247, 248, 252, 1) 60%),
+    radial-gradient(circle at 50% 50%, rgba(114, 92, 255, 0.18), transparent 70%);
+}
+
+/* reduced motion: disable transforms/animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .line-mask > .line-inner {
+    transform: none !important;
+  }
+}
+
+/* Hide scrollbar utility for horizontal scrollers */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Section anchor offset for sticky nav */
+.section-anchor {
+  scroll-margin-top: 96px;
+}

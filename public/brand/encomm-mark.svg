@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="ENCOMM">
+  <title>ENCOMM</title>
+  <defs>
+    <linearGradient id="enc-violet" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#A07BFF"/>
+      <stop offset="1" stop-color="#5E48D6"/>
+    </linearGradient>
+    <linearGradient id="enc-lilac" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E4CFFF"/>
+      <stop offset="1" stop-color="#B79BFF"/>
+    </linearGradient>
+    <linearGradient id="enc-cyan" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#66D7F5"/>
+      <stop offset="1" stop-color="#9BE7FB"/>
+    </linearGradient>
+    <linearGradient id="enc-magenta" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#E7A8F5"/>
+      <stop offset="1" stop-color="#C088E8"/>
+    </linearGradient>
+    <radialGradient id="enc-core-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#A07BFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Soft outer halo (very subtle, only visible on light bg) -->
+  <circle cx="80" cy="80" r="74" fill="url(#enc-core-glow)" opacity="0.35"/>
+  <!-- Hexagonal crystal outline: 6 vertex hexagon, slightly squashed for gem look -->
+  <g>
+    <!-- back/left facet -->
+    <polygon points="80,12 134,42 134,118 80,148 26,118 26,42" fill="url(#enc-violet)"/>
+    <!-- top-right bright facet -->
+    <polygon points="80,12 134,42 80,72" fill="url(#enc-lilac)"/>
+    <!-- right facet -->
+    <polygon points="134,42 134,118 80,88" fill="#7C66E8"/>
+    <!-- bottom-right facet -->
+    <polygon points="134,118 80,148 80,88" fill="url(#enc-magenta)" opacity="0.92"/>
+    <!-- bottom-left facet -->
+    <polygon points="80,148 26,118 80,88" fill="#5E48D6"/>
+    <!-- left facet -->
+    <polygon points="26,118 26,42 80,72" fill="#6E54D6"/>
+    <!-- top-left facet -->
+    <polygon points="26,42 80,12 80,72" fill="url(#enc-cyan)" opacity="0.92"/>
+    <!-- inner core: small bright E-bar stack -->
+    <g opacity="0.95">
+      <rect x="58" y="64" width="44" height="6" rx="3" fill="#FFFFFF"/>
+      <rect x="58" y="77" width="44" height="6" rx="3" fill="#F2ECFF"/>
+      <rect x="58" y="90" width="44" height="6" rx="3" fill="#FFFFFF"/>
+      <!-- vertical spine making the E read -->
+      <rect x="58" y="64" width="6" height="32" rx="3" fill="#FFFFFF"/>
+    </g>
+    <!-- data line accent -->
+    <line x1="80" y1="72" x2="134" y2="42" stroke="#FFFFFF" stroke-width="0.6" opacity="0.4"/>
+    <line x1="80" y1="72" x2="26" y2="42" stroke="#FFFFFF" stroke-width="0.6" opacity="0.4"/>
+  </g>
+</svg>
