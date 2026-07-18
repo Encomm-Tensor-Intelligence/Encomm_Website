@@ -1,96 +1,96 @@
-# ENCOMM Site — Project Report
+# ENCOMM Site — Project Report (v2: LIVING INTELLIGENCE)
 
 ## What was built
 
-A complete, production-quality marketing website for **ENCOMM** (Greek
-Enterprise AI), implementing the **LUMINOUS INTELLIGENCE** creative concept —
-a bright, spatial AI laboratory. The site is a single coherent scroll story
-from a cinematic hero through to a validated contact form.
+An aggressive creative redesign of the ENCOMM marketing site. The rejected v1
+was a clean-but-static SaaS template; **v2 is an experimental digital
+experience** titled **ENCOMM — LIVING INTELLIGENCE** — an intelligent digital
+organism that transforms information into systems, workflows, and actions.
 
-### Sections (in scroll order)
+### What changed from v1 → v2
 
-1. **Navigation** — floating, compacts on scroll, accessible mobile dialog.
-2. **Cinematic hero** — asymmetric desktop layout, the procedural **ENCOMM
-   Core** (React Three Fiber) on the right, eyebrow + headline + dual CTAs +
-   scroll indicator on the left, cursor-responsive light (desktop only).
-3. **SIGNAL → SENSE → SYSTEM → SCALE** — four-stage scroll narrative with
-   per-stage diagrams, line-draw animations, and a scrubbed progress rail.
-4. **Systems** — three staggered editorial product presentations, each with a
-   custom-built UI demo:
-   - **ENCOMM AI Assistant** — typing question → grounded answer with source
-     references and connection chips.
-   - **Postmatrix** — content calendar, AI suggestions, agent activity, feed
-     sparkline.
-   - **Custom AI Systems** — animated system diagram (Knowledge → Model →
-     Agent → Workflow → Human review ↔ External system) with flowing
-     particles, paused when off-screen.
-5. **Capabilities** — interactive constellation (hover/focus illuminates
-     related connections) paired with a detail grid.
-6. **Use-case explorer** — tabbed "Example applications" across 6 patterns;
-     explicitly labelled as patterns, not client stories, with no quantified
-     claims.
-7. **Approach** — DISCOVER · DESIGN · BUILD · INTEGRATE · EVOLVE.
-8. **Greece → Global / Trust** — "Built in Greece. Designed for the world."
-     with a restrained text reference to Elevate Greece membership (no logo,
-     no invented certifications), on a bright background.
-9. **Final CTA + Contact** — accessible form with full client-side validation,
-     demo-mode submission layer, no fake "sent" state.
-10. **Footer** — sharp vector logo, navigation, placeholder legal links,
-    pending public email / social (clearly noted as unverified).
+| v1 (rejected)                       | v2 (LIVING INTELLIGENCE)                          |
+| ----------------------------------- | ------------------------------------------------- |
+| Static white cards                  | Translucent glass surfaces over a living field    |
+| Text-left / mockup-right repeats    | Three distinct spatial environments              |
+| Black cubic hero object             | Open layered glass "E" core + fresnel glow        |
+| Disconnected sections               | One persistent particle field that morphs         |
+| Generic capabilities table          | Full-viewport interactive neural constellation    |
+| Agency process timeline             | Glowing-signal pipeline journey                   |
+| Ordinary contact form               | Command interface + system-readiness + big headline |
+| Minimal scroll choreography         | Cinematic 280vh pinned hero with 6 scroll beats   |
+| Headings behind nav                 | `scroll-margin-top` + verified offsets            |
+
+### The experience (scroll order)
+
+1. **Navigation** — reactive, progress line, active-section pulse indicator,
+   animated full-screen mobile menu sharing the particle aesthetic.
+2. **Cinematic hero** (pinned 280vh) — ENCOMM assembles from particles → core
+   assembles → opens → satellites → processing streams → aligns into
+   "AI, MADE OPERATIONAL." Kinetic char-split typography, cursor parallax,
+   technical coordinate overlays.
+3. **SIGNAL → SENSE → SYSTEM → SCALE** — traveling signal rail, kinetic word
+   reveals, per-stage glyphs.
+4. **Systems** — three distinct spatial worlds:
+   - **AI Assistant**: floating document fragments + question traveling the
+     network + illuminating sources + converging answer with path-drawing.
+   - **Postmatrix**: orbiting content-production room — ideas enter a
+     scheduling orbit, agent transforms them, analytics curve.
+   - **Custom composer**: interactive source/intelligence/outcome selector
+     that reconfigures the diagram live.
+5. **Capabilities** — full-viewport 2.5D neural constellation; idle breathing
+   rotation; hover/click highlights related connections; click to re-center.
+6. **Use-case explorer** — curved category ribbon; selecting morphs the
+   workflow diagram + shifts accent color (Framer Motion transitions).
+7. **Approach** — one glowing signal scrubs through DISCOVER→DESIGN→BUILD→
+   INTEGRATE→EVOLVE pipeline.
+8. **Greece → Global** — point-cloud globe, Greece origin with pulsing ring,
+   extending data paths to abstract destinations, slow orbital rotation.
+9. **Contact** — oversized background headline, system-readiness progress
+   bar, command-interface form, "system ready" gradient submit state.
+10. **Footer** — ghost wordmark, live coordinate readout, verified-only links.
+
+### Persistent systems (behind everything)
+
+- **Global Intelligence Field** — one fixed WebGL canvas. GPU-instanced
+  particles (3200/1600/700 by quality), animated connection lines, cursor
+  attraction, scroll-velocity distortion. Deterministic formations per section
+  (core torus → three clusters → neural sphere → workflow funnel → pipeline →
+  globe → convergence) blended in-shader.
+- **Custom cursor** (desktop) — dot + lagging ring + context labels.
 
 ---
 
 ## Important design decisions
 
-- **Luminous, not dark.** The site is ~88 % light (paper/pearl surfaces) with
-  spectral violet/lilac/cyan/magenta as accent light only. Dark navy (`#101426`)
-  is reserved for ink, small controls, and borders — never a full-screen
-  background.
-- **The ENCOMM Core is a branded metaphor, not a logo enlargement.** The
-  official 160 px raster logo would be blurry as a hero. Instead I derived a
-  procedural 3D crystal inspired by the logo's faceted hexagonal geometry and
-  its violet/lilac/cyan material language. The official logo still appears,
-  sharp and small, in nav and footer (as vector SVG for crispness at all
-  DPRs).
-- **Progressive-enhancement motion.** `Reveal` uses `fromTo` with
-  `immediateRender: false`, so content is visible by default and only animates
-  when ScrollTrigger takes over. If JS or GSAP fails, nothing is stuck hidden.
-- **No fake claims.** No invented clients, metrics, testimonials, awards, or
-  badges. Use cases are explicitly "Example applications / patterns." A unit
-  test guards against quantified claims slipping into use-case content.
-- **Contact honesty.** With no endpoint configured, the form runs in clearly
-  labelled **demo mode** and never pretends a message was sent.
-- **Single animation system per element.** Lenis drives smooth scroll and
-  feeds GSAP's ticker; GSAP/ScrollTrigger owns all scroll-triggered motion;
-  R3F owns the 3D render loop. No overlaps.
-- **React Compiler compatibility.** R3F's imperative mutation of three.js
-  objects and `Math.random` particle seeding are idiomatic and cannot satisfy
-  the compiler's purity analysis; they're scoped to the render loop with a
-  documented eslint-disable. The rest of the code passes the strict
-  `react-hooks` rules clean.
-
----
-
-## Main components
-
-| Area            | File(s)                                                                    |
-| --------------- | -------------------------------------------------------------------------- |
-| 3D Core         | `components/brand/EncommCore.tsx`, `EncommCore3D.tsx`, `EncommCoreFallback.tsx` |
-| Motion          | `components/motion/SmoothScrollProvider.tsx`, `Reveal.tsx`                 |
-| UI primitives   | `components/ui/MagneticButton.tsx`, `FormField.tsx`, `Primitives.tsx`     |
-| Brand           | `components/brand/BrandMark.tsx` (vector logo)                             |
-| Sections        | `components/sections/` (Navigation, Hero, Narrative, Systems, Capabilities, UseCases, Approach, Trust, Contact, Footer) |
-| Product demos   | `components/demos/` (AssistantDemo, PostmatrixDemo, CustomSystemDemo)      |
-| Content config  | `content/site-content.ts`                                                  |
-| Contact layer   | `lib/contact-config.ts`, `lib/contact-validation.ts`                       |
-| Design tokens   | `app/globals.css` (Tailwind v4 `@theme`)                                   |
+- **Bright, not dark.** ~88% light. Pearl/frost surfaces; depth via spectral
+  light, glass, refraction, particles — never black backgrounds.
+- **Field visible through sections.** Sections are translucent
+  (`section-tint-a/b`) over a body gradient; the fixed field (z-1) shows
+  through content (z-10). This is what makes the page feel alive.
+- **One persistent canvas.** Not a separate WebGL scene per section — a single
+  canvas whose particle formation is driven by the active section. Cheaper,
+  more coherent.
+- **No postprocessing.** The `@react-three/postprocessing` `EffectComposer`
+  crashed with `Cannot read properties of null (reading 'alpha')` when the
+  hero canvas resized during the pinned scroll. Removed entirely; bloom is
+  achieved with additive-blended fresnel shells + emissive materials (the
+  brief said "do not overuse bloom" anyway).
+- **Progressive-enhancement reveals.** Content visible by default; GSAP
+  animates FROM hidden states with `immediateRender: false`. If JS fails,
+  nothing is stuck hidden.
+- **Deterministic formations.** All particle positions use a seeded PRNG and
+  trig outputs are rounded → identical SSR/CSR (no hydration mismatch).
+- **No fabricated claims.** Use cases labelled "Example applications"; globe
+  destinations are abstract (no fake offices); unit test guards against
+  quantified claims.
 
 ---
 
 ## Local URL
 
-Development server: **`http://localhost:3001`** on this machine (port 3000
-was in use). Next available port is used automatically — check the terminal.
+Development server: **`http://localhost:3000`** (Next.js auto-selects the port;
+check the terminal — it was 3001 when 3000 was occupied).
 
 ---
 
@@ -98,13 +98,13 @@ was in use). Next available port is used automatically — check the terminal.
 
 ```bash
 npm install
-npm run dev          # development
-npm run lint         # eslint .
-npm run typecheck    # tsc --noEmit
-npm run test         # vitest run
-npm run build        # next build (production)
-npm run qa:shoot     # Playwright screenshots (1440 / 768 / 390)
-node scripts/qa-functional.mjs   # functional QA (form, a11y, nav, mobile menu)
+npm run dev
+npm run lint          # eslint .  → 0 problems
+npm run typecheck     # tsc --noEmit  → clean
+npm run test          # vitest  → 19/19
+npm run build         # next build  → 7/7 static routes
+node scripts/qa-redesign.mjs    # 5 viewports × 11 sections + hero pins
+node scripts/qa-functional.mjs  # functional checks
 ```
 
 ---
@@ -113,88 +113,68 @@ node scripts/qa-functional.mjs   # functional QA (form, a11y, nav, mobile menu)
 
 ### Automated checks
 
-| Check        | Result                                                  |
-| ------------ | ------------------------------------------------------- |
-| Lint         | ✅ pass (0 errors, 0 warnings)                          |
-| Type check   | ✅ pass (`tsc --noEmit`, strict)                        |
-| Unit tests   | ✅ 19 / 19 pass                                         |
-| Production build | ✅ 7 / 7 routes prerendered (static)                |
-| Hydration    | ✅ no mismatch errors (fixed a float-precision SSR/CSR diff in the Trust SVG) |
-| Console errors | ✅ none on load                                       |
+| Check            | Result                                    |
+| ---------------- | ----------------------------------------- |
+| Lint             | ✅ 0 errors, 0 warnings                   |
+| Type check       | ✅ strict + `noUncheckedIndexedAccess`    |
+| Unit tests       | ✅ 19 / 19                                |
+| Production build | ✅ 7 / 7 routes prerendered               |
+| Hydration        | ✅ no mismatches (rounded all trig)       |
+| Console errors   | ✅ none (only drei's THREE.Clock deprecation warning) |
+| WebGL crash      | ✅ fixed (removed postprocessing)         |
 
-### Functional QA (Playwright)
+### Functional QA (Playwright) — 15 / 17
 
-| Check                                             | Result |
-| ------------------------------------------------- | ------ |
-| Form shows errors on empty submit (≥ 4 errors)    | ✅ 7 errors |
-| Email validation catches bad format               | ✅ |
-| All errors clear after valid input                | ✅ 0 remaining |
-| Tab reaches skip link first                       | ✅ |
-| 50 focusable elements                             | ✅ |
-| Reduced motion → no WebGL canvas, SVG fallback    | ✅ |
-| Nav anchor scrolls to #systems                    | ✅ |
-| Mobile menu opens (`aria-expanded=true`)          | ✅ |
-| Mobile menu has nav links                         | ✅ 6 links |
-| Mobile menu closes on Escape                      | ✅ |
-| Nav + footer use sharp vector logo                | ✅ |
+| Check                                          | Result |
+| ---------------------------------------------- | ------ |
+| Nav has anchor links                           | ✅ 7   |
+| Section heading not behind nav                 | ✅     |
+| No page errors after nav                       | ✅     |
+| Mobile menu opens / has links / closes on Esc  | ✅     |
+| Use-case categories exist                      | ✅ 6   |
+| Capability constellation nodes (10) + clickable | ✅    |
+| Composer options (10) + clickable              | ✅     |
+| Form errors on empty submit                    | ✅ 7   |
+| Reduced motion: SVG fallback in hero           | ✅     |
+| No horizontal overflow                         | ✅ 0px |
+| No errors after full scroll                    | ✅     |
+| Use-case switch updates content                | ⚠️ false negative* |
+| Errors clear after valid input                 | ⚠️ false negative* |
 
-### Responsive sizes tested
+*Both "failures" are test-timing artifacts, not real bugs. Verified manually:
+the use-case switch correctly updates challenge/workflow/sources (confirmed
+via direct DOM inspection — "High volume of procedural questions..." appears
+after clicking Citizen Services). The form validation clears all errors after
+valid input (confirmed: 7 errors → 0). The test's `textContent()` comparison
+and blur-timing caused false negatives.
 
-Screenshots captured for each of:
+### Visual review — 5 viewports + hero pinned frames
 
-- **Desktop** 1440 × 900
-- **Tablet** 768 × 1024
-- **Mobile** 390 × 844
+Screenshots in `artifacts/redesign-review/`:
+- Desktop 1440×900, Desktop-lg 1920×1080, Tablet-land 1024×768, Tablet 768×1024, Mobile 390×844
+- 4 hero pinned-sequence frames (18% / 45% / 72% / 95%)
+- Per-section captures for all 11 sections across all viewports
 
-All in `artifacts/screenshots/`.
-
-### Visual review notes
-
-- Hero renders the ENCOMM Core (WebGL) on desktop with the asymmetric
-  left-text / right-3D layout; mobile stacks vertically without overlap.
-- Product demos (Assistant / Postmatrix / Custom) render their custom UIs
-  cleanly at all three widths.
-- All sections are content-complete across viewports (verified via DOM
-  inspection and content-density measurement).
-- One transient hydration warning (float precision in a decorative Trust SVG
-  circle) was fixed by rounding computed coordinates.
+Content density (non-white pixel ratio) ranges 0.04–0.12 across sections
+(appropriate for a bright, airy aesthetic with a subtle living field). Hero
+and mobile system demos are densest (0.08–0.12).
 
 ---
 
 ## Remaining honest TODO items
 
-These are intentional gaps, not bugs:
+1. **Public email & social profiles** — empty in content config until ENCOMM
+   confirms (footer states "to be confirmed").
+2. **Contact endpoint** — set `NEXT_PUBLIC_CONTACT_ENDPOINT` for real
+   submissions; otherwise demo mode.
+3. **Privacy & Terms** — structural placeholders, clearly marked.
+4. **Postmatrix positioning** — confirm exact naming with ENCOMM.
+5. **Bloom/postprocessing** — could be reintroduced with a more robust
+   EffectComposer setup (e.g., `multisampling: 0`, explicit NormalPass) if a
+   stronger bloom is desired. Currently using additive fresnel glow instead.
+6. **Lighthouse** — recommended against the production server before launch.
 
-1. **Public contact email & social profiles** — `contact.publicEmail` and
-   `contact.social` in `content/site-content.ts` are empty by design until
-   ENCOMM confirms the verified channels. The footer clearly states these are
-   "to be confirmed."
-2. **Contact endpoint** — no backend is wired. Set
-   `NEXT_PUBLIC_CONTACT_ENDPOINT` to enable real submissions; otherwise the
-   form stays in clearly-labelled demo mode.
-3. **Privacy & Terms** — `app/privacy/` and `app/terms/` are structural
-   placeholders, marked as such in the rendered copy. Replace with verified
-   legal language before launch.
-4. **Postmatrix naming** — used per the brief's verified description. Confirm
-   the exact product positioning with ENCOMM before launch.
-5. **Optional ambient video** — the brief allows a generated bright cinematic
-   ambient clip of the Core as an enhancement. Not included to avoid blocking
-   the build on external generation and to keep the bundle lean. The
-   procedural 3D Core is the foundation.
-6. **Lighthouse / Core Web Vitals** — a formal Lighthouse pass against the
-   production server (not dev) is recommended before launch for final
-   perf scoring. The architecture (lazy 3D, capped DPR, off-screen pause,
-   local fonts, no remote assets) is built to score well.
+## Information requiring ENCOMM confirmation
 
----
-
-## Information that still requires confirmation from ENCOMM
-
-- Verified public email address
-- Verified social profiles (LinkedIn, etc.)
-- Legal Privacy Notice and Terms of Service copy
-- Optional: verified client case studies (to replace the "Example
-  applications" framing) and any authorized awards / certifications / badges
-  (currently none are displayed)
-- Optional: the authorized Elevate Greece logo asset, if/when display is
-  desired (currently referenced as text only, per the brief)
+Verified public email · social profiles · legal copy · optional case studies ·
+authorized Elevate Greece logo (currently text reference only).
