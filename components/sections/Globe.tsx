@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef } from "react";
-import { trust } from "@/content/site-content";
+import { useLanguage } from "@/lib/i18n";
 import {
   useReducedMotion,
   useIsomorphicLayoutEffect,
@@ -54,6 +54,8 @@ function sphericalToCartesian(lat: number, lon: number, r: number) {
 }
 
 export function Globe() {
+  const { content, copy } = useLanguage();
+  const { trust } = content;
   const reduced = useReducedMotion();
   const root = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -132,11 +134,11 @@ export function Globe() {
         {/* left text */}
         <div>
           <p className="eyebrow mb-5">
-            <span className="text-violet">G—01</span> · Greece → Global
+            <span className="text-violet">G—01</span> · {copy.globe.eyebrow}
           </p>
           <h2 className="kinetic text-[clamp(2.4rem,6vw,5rem)] text-ink">
-            <span className="block">Built in Greece.</span>
-            <span className="block text-spectral">Designed for the world.</span>
+            <span className="block">{copy.globe.lineOne}</span>
+            <span className="block text-spectral">{copy.globe.lineTwo}</span>
           </h2>
           <p className="mt-7 max-w-md text-[16px] leading-relaxed text-muted">
             {trust.copy}
@@ -153,7 +155,7 @@ export function Globe() {
             ))}
           </ul>
           <p className="mt-8 font-mono text-[11px] text-faint">
-            ◦ Recognized member of Elevate Greece
+            {copy.globe.recognized}
           </p>
         </div>
 
@@ -283,10 +285,10 @@ export function Globe() {
             <div className="leading-tight">
               <div className="text-[12px] font-medium text-ink">ENCOMM</div>
               <div className="font-mono text-[9px] text-faint">
-                Athens · Greece → Global
+                {copy.globe.location}
               </div>
             </div>
-            <span className="chip">Elevate Greece · member</span>
+            <span className="chip">{copy.globe.member}</span>
           </div>
         </div>
       </div>

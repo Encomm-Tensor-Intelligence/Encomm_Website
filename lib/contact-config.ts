@@ -17,6 +17,7 @@
  */
 
 import { contact } from "@/content/site-content";
+import type { Language } from "@/content/site-content";
 
 export const contactEndpoint: string =
   process.env.NEXT_PUBLIC_CONTACT_ENDPOINT ||
@@ -44,14 +45,17 @@ export type ContactPayload = {
  */
 export async function submitContact(
   payload: ContactPayload,
+  language: Language = "en",
 ): Promise<ContactSubmitResult> {
+  const el = language === "el";
   if (isDemoMode) {
     await new Promise((r) => setTimeout(r, 650));
     return {
       ok: true,
       demo: true,
-      message:
-        "Demo mode: your details are valid, but no message was sent because no contact endpoint is configured.",
+      message: el
+        ? "Λειτουργία επίδειξης: τα στοιχεία σας είναι έγκυρα, αλλά δεν στάλθηκε μήνυμα επειδή δεν έχει ρυθμιστεί endpoint επικοινωνίας."
+        : "Demo mode: your details are valid, but no message was sent because no contact endpoint is configured.",
     };
   }
 
@@ -65,20 +69,25 @@ export async function submitContact(
       return {
         ok: false,
         errors: {},
-        message: `Submission failed (${res.status}). Please try again or email us directly.`,
+        message: el
+          ? `Η αποστολή απέτυχε (${res.status}). Δοκιμάστε ξανά ή επικοινωνήστε μαζί μας μέσω email.`
+          : `Submission failed (${res.status}). Please try again or email us directly.`,
       };
     }
     return {
       ok: true,
       demo: false,
-      message: "Thank you — we'll be in touch shortly.",
+      message: el
+        ? "Ευχαριστούμε — θα επικοινωνήσουμε σύντομα μαζί σας."
+        : "Thank you — we'll be in touch shortly.",
     };
   } catch {
     return {
       ok: false,
       errors: {},
-      message:
-        "Network error while submitting. Please check your connection and try again.",
+      message: el
+        ? "Παρουσιάστηκε σφάλμα δικτύου. Ελέγξτε τη σύνδεσή σας και δοκιμάστε ξανά."
+        : "Network error while submitting. Please check your connection and try again.",
     };
   }
 }

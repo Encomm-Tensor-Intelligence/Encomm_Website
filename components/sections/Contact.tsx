@@ -1,13 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo, useState } from "react";
-import { finalCta, projectTypeOptions } from "@/content/site-content";
 import type { ContactFormData } from "@/content/site-content";
+import { useLanguage } from "@/lib/i18n";
 import {
   validateAll,
-  validateField,
   hasErrors,
-  type FieldErrors,
 } from "@/lib/contact-validation";
 import { submitContact, isDemoMode } from "@/lib/contact-config";
 import { Field, fieldStyles, fieldErrorStyles } from "@/components/ui/FormField";
@@ -34,8 +33,9 @@ const FIELD_ORDER: (keyof ContactFormData)[] = [
 ];
 
 export function Contact() {
+  const { language, content, copy } = useLanguage();
+  const { finalCta, projectTypeOptions } = content;
   const [data, setData] = useState<ContactFormData>(EMPTY);
-  const [errors, setErrors] = useState<FieldErrors>({});
   const [touched, setTouched] = useState<
     Partial<Record<keyof ContactFormData, boolean>>
   >({});
@@ -45,17 +45,16 @@ export function Contact() {
   const [feedback, setFeedback] = useState<string>("");
   const [demo, setDemo] = useState(false);
 
+  const errors = useMemo(
+    () => validateAll(data, language),
+    [data, language],
+  );
+
   function set<K extends keyof ContactFormData>(key: K, value: ContactFormData[K]) {
     setData((d) => ({ ...d, [key]: value }));
-    if (touched[key]) {
-      const err = validateField(key, value);
-      setErrors((e) => ({ ...e, [key]: err ?? undefined }));
-    }
   }
   function blur(key: keyof ContactFormData) {
     setTouched((t) => ({ ...t, [key]: true }));
-    const err = validateField(key, data[key]);
-    setErrors((e) => ({ ...e, [key]: err ?? undefined }));
   }
 
   // completion progress 0..1
@@ -68,13 +67,15 @@ export function Contact() {
     return done / FIELD_ORDER.length;
   }, [data]);
 
-  const allValid = useMemo(() => !hasErrors(validateAll(data)), [data]);
+  const allValid = useMemo(
+    () => !hasErrors(validateAll(data, language)),
+    [data, language],
+  );
   const systemReady = progress === 1 && allValid;
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const allErrors = validateAll(data);
-    setErrors(allErrors);
+    const allErrors = validateAll(data, language);
     setTouched(Object.fromEntries(FIELD_ORDER.map((k) => [k, true])));
     if (hasErrors(allErrors)) {
       const first = Object.keys(allErrors)[0];
@@ -82,7 +83,7 @@ export function Contact() {
       return;
     }
     setStatus("submitting");
-    const result = await submitContact(data);
+    const result = await submitContact(data, language);
     if (result.ok) {
       setStatus("success");
       setFeedback(result.message);
@@ -109,9 +110,9 @@ export function Contact() {
         className="pointer-events-none absolute inset-x-0 top-12 select-none text-center"
       >
         <h2 className="kinetic text-[clamp(2.6rem,9vw,9rem)] leading-none text-ink/[0.06]">
-          WHAT SHOULD AI DO
+          {copy.contact.lineOne.toUpperCase()}
           <br />
-          FOR YOUR ORGANIZATION?
+          {copy.contact.lineTwo.toUpperCase()}
         </h2>
       </div>
 
@@ -120,12 +121,12 @@ export function Contact() {
           {/* left — invitation */}
           <div className="relative">
             <Reveal variant="fade-up">
-              <Eyebrow index="C—02">Contact</Eyebrow>
+              <Eyebrow index="C—02">{copy.contact.eyebrow}</Eyebrow>
             </Reveal>
             <h2 className="kinetic mt-5 text-[clamp(2rem,5vw,3.6rem)] text-ink">
-              <LineMask>What should AI do</LineMask>
+              <LineMask>{copy.contact.lineOne}</LineMask>
               <LineMask>
-                <span className="text-spectral">for your organization?</span>
+                <span className="text-spectral">{copy.contact.lineTwo}</span>
               </LineMask>
             </h2>
             <Reveal variant="fade-up" delay={0.1}>
@@ -138,14 +139,16 @@ export function Contact() {
             <Reveal variant="fade-up" delay={0.18}>
               <div className="mt-8 rounded-2xl border border-line glass p-4">
                 <div className="mb-2 flex items-center justify-between">
-                  <span className="eyebrow">System readiness</span>
+                  <span className="eyebrow">{copy.contact.readiness}</span>
                   <span
                     className={cn(
                       "font-mono text-[11px]",
                       systemReady ? "text-violet" : "text-faint",
                     )}
                   >
-                    {systemReady ? "● READY" : "○ CONFIGURING"}
+                    {systemReady
+                      ? copy.contact.ready
+                      : copy.contact.configuring}
                   </span>
                 </div>
                 {/* progress bar */}
@@ -156,8 +159,8 @@ export function Contact() {
                   />
                 </div>
                 <div className="mt-2 flex justify-between font-mono text-[9px] text-faint">
-                  <span>{Math.round(progress * 100)}% complete</span>
-                  <span>{Object.keys(errors).length} issues</span>
+                  <span>{Math.round(progress * 100)}% {copy.contact.complete}</span>
+                  <span>{Object.keys(errors).length} {copy.contact.issues}</span>
                 </div>
               </div>
             </Reveal>
@@ -165,13 +168,12 @@ export function Contact() {
             {isDemoMode ? (
               <Reveal variant="fade-up" delay={0.24}>
                 <div className="mt-4 rounded-lg border border-line bg-white/60 px-3 py-2 text-[11.5px] text-muted">
-                  <strong className="text-ink">Demo mode.</strong> No contact
-                  endpoint configured — submissions validate locally but are
-                  not sent. Set{" "}
+                  <strong className="text-ink">{copy.contact.demoTitle}</strong>{" "}
+                  {copy.contact.demoText}{" "}
                   <code className="rounded bg-surface-soft px-1 font-mono text-[10.5px]">
                     NEXT_PUBLIC_CONTACT_ENDPOINT
                   </code>{" "}
-                  to enable.
+                  {copy.contact.demoEnable}
                 </div>
               </Reveal>
             ) : null}
@@ -182,7 +184,7 @@ export function Contact() {
             <form
               noValidate
               onSubmit={onSubmit}
-              aria-label="Contact ENCOMM"
+              aria-label={copy.contact.formLabel}
               className="relative overflow-hidden rounded-[28px] border border-line glass-strong p-6 shadow-lift md:p-8"
             >
               {/* corner technical marks */}
@@ -193,12 +195,12 @@ export function Contact() {
 
               <div className="mb-6 flex items-center gap-2">
                 <span className="status-dot" />
-                <span className="eyebrow">Command interface</span>
+                <span className="eyebrow">{copy.contact.command}</span>
               </div>
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 <Field
-                  label="Name"
+                  label={copy.contact.name}
                   required
                   error={touched.name ? errors.name : undefined}
                 >
@@ -214,13 +216,13 @@ export function Contact() {
                       aria-invalid={invalid}
                       aria-describedby={describedBy}
                       required={required}
-                      placeholder="Your name"
+                      placeholder={copy.contact.namePlaceholder}
                     />
                   )}
                 </Field>
 
                 <Field
-                  label="Work email"
+                  label={copy.contact.email}
                   required
                   error={touched.email ? errors.email : undefined}
                 >
@@ -242,7 +244,7 @@ export function Contact() {
                 </Field>
 
                 <Field
-                  label="Company"
+                  label={copy.contact.company}
                   required
                   error={touched.company ? errors.company : undefined}
                 >
@@ -257,13 +259,13 @@ export function Contact() {
                       onBlur={() => blur("company")}
                       aria-invalid={invalid}
                       required
-                      placeholder="Organization"
+                      placeholder={copy.contact.companyPlaceholder}
                     />
                   )}
                 </Field>
 
                 <Field
-                  label="Project type"
+                  label={copy.contact.projectType}
                   required
                   error={touched.projectType ? errors.projectType : undefined}
                 >
@@ -278,7 +280,7 @@ export function Contact() {
                       aria-invalid={invalid}
                       required
                     >
-                      <option value="">Select the closest match…</option>
+                      <option value="">{copy.contact.select}</option>
                       {projectTypeOptions.map((p) => (
                         <option key={p} value={p}>
                           {p}
@@ -291,10 +293,10 @@ export function Contact() {
 
               <div className="mt-5">
                 <Field
-                  label="What should AI do for you?"
+                  label={copy.contact.message}
                   required
                   error={touched.message ? errors.message : undefined}
-                  hint="The problem, the systems involved, the outcome you're after."
+                  hint={copy.contact.messageHint}
                 >
                   {({ invalid }) => (
                     <textarea
@@ -311,7 +313,7 @@ export function Contact() {
                       onBlur={() => blur("message")}
                       aria-invalid={invalid}
                       required
-                      placeholder="We'd like to …"
+                      placeholder={copy.contact.messagePlaceholder}
                     />
                   )}
                 </Field>
@@ -328,14 +330,13 @@ export function Contact() {
                     aria-invalid={Boolean(touched.consent && errors.consent)}
                   />
                   <span>
-                    I agree to be contacted about my enquiry and to ENCOMM's
-                    privacy practices.{" "}
-                    <a
-                      href="/privacy"
+                    {copy.contact.consentBefore}{" "}
+                    <Link
+                      href={`/${language}/privacy`}
                       className="text-violet underline-offset-2 hover:underline"
                     >
-                      Privacy notice
-                    </a>
+                      {copy.contact.privacyNotice}
+                    </Link>
                     .
                   </span>
                 </label>
@@ -366,9 +367,9 @@ export function Contact() {
                   />
                   <span className="relative z-10">
                     {status === "submitting"
-                      ? "Transmitting…"
+                      ? copy.contact.transmitting
                       : systemReady
-                        ? "System ready — start conversation"
+                        ? copy.contact.systemReady
                         : finalCta.cta}
                   </span>
                 </button>
@@ -382,7 +383,7 @@ export function Contact() {
                     {feedback}
                     {demo ? (
                       <span className="ml-1 rounded bg-surface-soft px-1.5 py-0.5 font-mono text-[10.5px] uppercase tracking-wider text-faint">
-                        demo
+                        {copy.contact.demoBadge}
                       </span>
                     ) : null}
                   </p>

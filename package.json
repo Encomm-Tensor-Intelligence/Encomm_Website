@@ -5,7 +5,7 @@
   "description": "ENCOMM — Enterprise AI. LUMINOUS INTELLIGENCE marketing site.",
   "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --hostname 127.0.0.1",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
@@ -25,6 +25,7 @@
     "next": "16.2.10",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "react-icons": "^5.7.0",
     "three": "0.185.1"
   },
   "devDependencies": {

@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { approach } from "@/content/site-content";
+import { useLanguage } from "@/lib/i18n";
 import {
   useReducedMotion,
   useIsomorphicLayoutEffect,
@@ -11,19 +11,15 @@ import {
 
 gsap.registerPlugin(ScrollTrigger);
 
-const STAGE_ART: Record<string, string> = {
-  Discover: "◎",
-  Design: "◈",
-  Build: "◆",
-  Integrate: "⬡",
-  Evolve: "✦",
-};
+const STAGE_ART = ["◎", "◈", "◆", "⬡", "✦"] as const;
 
 /**
  * Approach — a scroll-controlled journey through DISCOVER → DESIGN → BUILD
  * → INTEGRATE → EVOLVE. One glowing signal travels the whole pipeline.
  */
 export function Approach() {
+  const { content, copy } = useLanguage();
+  const { approach } = content;
   const reduced = useReducedMotion();
   const root = useRef<HTMLDivElement>(null);
 
@@ -79,11 +75,11 @@ export function Approach() {
 
       <div className="mx-auto max-w-[1400px] px-4 md:px-8">
         <p className="eyebrow mb-5">
-          <span className="text-violet">A—01</span> · Approach
+          <span className="text-violet">A—01</span> · {copy.approach.eyebrow}
         </p>
         <h2 className="kinetic mb-16 max-w-4xl text-[clamp(2.2rem,6vw,5rem)] text-ink">
-          One signal through the{" "}
-          <span className="text-spectral">whole pipeline</span>.
+          {copy.approach.lineOne}{" "}
+          <span className="text-spectral">{copy.approach.accent}</span>.
         </h2>
 
         {/* pipeline track */}
@@ -123,7 +119,7 @@ export function Approach() {
                     className="font-display text-3xl text-violet"
                     aria-hidden="true"
                   >
-                    {STAGE_ART[s.title]}
+                    {STAGE_ART[i]}
                   </span>
                   <div>
                     <span className="font-mono text-[10px] text-faint">
@@ -139,7 +135,7 @@ export function Approach() {
                 </p>
                 {/* coordinate */}
                 <p className="mt-3 font-mono text-[9px] text-faint">
-                  STAGE · {s.index} · {(i + 1) * 20}%
+                  {copy.approach.stage} · {s.index} · {(i + 1) * 20}%
                 </p>
               </li>
             ))}

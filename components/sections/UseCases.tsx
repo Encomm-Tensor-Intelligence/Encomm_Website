@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useCases } from "@/content/site-content";
 import { useReducedMotion } from "@/lib/motion/use-scroll-state";
+import { useLanguage } from "@/lib/i18n";
 
 const ACCENTS: Record<string, { from: string; to: string }> = {
   "uc-enterprise": { from: "#6a4dff", to: "#4fd4f5" },
@@ -40,6 +40,8 @@ const SOURCE_ICONS: Record<string, string> = {
  * workflow diagram, source nodes, and accent color.
  */
 export function UseCaseExplorer() {
+  const { content, copy } = useLanguage();
+  const { useCases } = content;
   const reduced = useReducedMotion();
   const [activeId, setActiveId] = useState(useCases[0]!.id);
   const active = useCases.find((u) => u.id === activeId) ?? useCases[0]!;
@@ -54,11 +56,11 @@ export function UseCaseExplorer() {
 
       <div className="mx-auto max-w-[1400px] px-4 md:px-8">
         <p className="eyebrow mb-5">
-          <span className="text-violet">U—01</span> · Example applications
+          <span className="text-violet">U—01</span> · {copy.useCases.eyebrow}
         </p>
         <h2 className="kinetic mb-12 max-w-4xl text-[clamp(2.2rem,6vw,5rem)] text-ink">
-          One system,{" "}
-          <span className="text-spectral">many worlds</span>.
+          {copy.useCases.lineOne}{" "}
+          <span className="text-spectral">{copy.useCases.accent}</span>.
         </h2>
 
         {/* category ribbon — curved arrangement */}
@@ -116,11 +118,11 @@ export function UseCaseExplorer() {
             <div className="relative grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
               {/* left: challenge + behavior */}
               <div>
-                <p className="eyebrow mb-3">Challenge</p>
+                <p className="eyebrow mb-3">{copy.useCases.challenge}</p>
                 <p className="font-display text-xl text-ink md:text-2xl">
                   {active.challenge}
                 </p>
-                <p className="eyebrow mb-3 mt-6">AI behavior</p>
+                <p className="eyebrow mb-3 mt-6">{copy.useCases.behavior}</p>
                 <p className="text-[15px] leading-relaxed text-muted">
                   {active.behavior}
                 </p>
@@ -128,7 +130,7 @@ export function UseCaseExplorer() {
 
               {/* right: workflow diagram */}
               <div>
-                <p className="eyebrow mb-3">Workflow</p>
+                <p className="eyebrow mb-3">{copy.useCases.workflow}</p>
                 {/* source nodes → assistant → outcome */}
                 <div className="space-y-3">
                   <div className="flex flex-wrap gap-1.5">
@@ -171,7 +173,7 @@ export function UseCaseExplorer() {
                       ⬡
                     </div>
                     <span className="text-[13px] font-medium text-ink">
-                      ENCOMM intelligence
+                      {copy.useCases.intelligence}
                     </span>
                   </div>
 
@@ -195,7 +197,7 @@ export function UseCaseExplorer() {
             </div>
 
             <p className="relative mt-8 font-mono text-[10px] text-faint">
-              ◦ Example application · capability pattern, not a client story
+              {copy.useCases.disclaimer}
             </p>
           </motion.div>
         </AnimatePresence>

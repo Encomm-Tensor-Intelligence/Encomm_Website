@@ -1,31 +1,75 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   useReducedMotion,
   useIsomorphicLayoutEffect,
 } from "@/lib/motion/use-scroll-state";
+import { useLanguage } from "@/lib/i18n";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const QUESTION = "What's our refund policy for software purchased after March?";
-const ANSWER =
-  "Customers can request a refund within 30 days of purchase for software bought after March 1st. Commercial licenses are eligible at 50%.";
-const SOURCES = [
-  { label: "Refund Policy.pdf", type: "PDF", x: 8, y: 18, active: true },
-  { label: "Terms · §4.2", type: "DOC", x: 78, y: 12, active: true },
-  { label: "billing · /orders", type: "API", x: 70, y: 62, active: true },
-  { label: "support.encomm.ai", type: "WEB", x: 14, y: 70, active: false },
-  { label: "customers.db", type: "DB", x: 44, y: 8, active: true },
-];
+const SOURCE_LAYOUT = [
+  { id: "refund", type: "PDF", x: 8, y: 18, active: true },
+  { id: "terms", type: "DOC", x: 78, y: 12, active: true },
+  { id: "billing", type: "API", x: 70, y: 62, active: true },
+  { id: "support", type: "WEB", x: 14, y: 70, active: false },
+  { id: "customers", type: "DB", x: 44, y: 8, active: true },
+] as const;
 
 /**
  * AssistantSpace — floating document fragments in space, a question travels
  * the network, sources illuminate, an answer converges. Not a chat card.
  */
 export function AssistantSpace() {
+  const { language } = useLanguage();
+  const localized = useMemo(
+    () => language === "el"
+      ? {
+          question:
+            "Ποια είναι η πολιτική επιστροφών για λογισμικό που αγοράστηκε μετά τον Μάρτιο;",
+          answer:
+            "Οι πελάτες μπορούν να ζητήσουν επιστροφή εντός 30 ημερών για λογισμικό που αγοράστηκε μετά την 1η Μαρτίου. Οι εμπορικές άδειες δικαιούνται επιστροφή 50%.",
+          labels: {
+            refund: "Πολιτική Επιστροφών.pdf",
+            terms: "Όροι · §4.2",
+            billing: "χρεώσεις · /orders",
+            support: "support.encomm.ai",
+            customers: "πελάτες.db",
+          },
+          grounded: "Τεκμηριωμένη απάντηση",
+          retrieving: "Ανάκτηση…",
+          source: "πηγή",
+        }
+      : {
+          question:
+            "What's our refund policy for software purchased after March?",
+          answer:
+            "Customers can request a refund within 30 days of purchase for software bought after March 1st. Commercial licenses are eligible at 50%.",
+          labels: {
+            refund: "Refund Policy.pdf",
+            terms: "Terms · §4.2",
+            billing: "billing · /orders",
+            support: "support.encomm.ai",
+            customers: "customers.db",
+          },
+          grounded: "Grounded response",
+          retrieving: "Retrieving…",
+          source: "source",
+        },
+    [language],
+  );
+  const sources = useMemo(
+    () => SOURCE_LAYOUT.map((source) => ({
+      ...source,
+      label: localized.labels[source.id],
+    })),
+    [localized.labels],
+  );
+  const question = localized.question;
+  const answer = localized.answer;
   const reduced = useReducedMotion();
   const root = useRef<HTMLDivElement>(null);
   const [typed, setTyped] = useState("");
@@ -34,31 +78,31 @@ export function AssistantSpace() {
   const [filter, setFilter] = useState<string | null>(null);
   const played = useRef(false);
 
-  const play = async () => {
+  const play = useCallback(async () => {
     setTyped("");
     setShowAnswer(false);
     setLitSources(new Set());
     // light sources sequentially
-    for (const s of SOURCES) {
+    for (const s of sources) {
       if (s.active) {
         await new Promise((r) => setTimeout(r, 160));
-        setLitSources((prev) => new Set(prev).add(s.label));
+        setLitSources((prev) => new Set(prev).add(s.id));
       }
     }
     await new Promise((r) => setTimeout(r, 250));
-    for (let i = 0; i <= QUESTION.length; i++) {
-      setTyped(QUESTION.slice(0, i));
+    for (let i = 0; i <= question.length; i++) {
+      setTyped(question.slice(0, i));
       await new Promise((r) => setTimeout(r, 22));
     }
     await new Promise((r) => setTimeout(r, 350));
     setShowAnswer(true);
-  };
+  }, [question, sources]);
 
   useIsomorphicLayoutEffect(() => {
     if (reduced) {
-      setTyped(QUESTION);
+      setTyped(question);
       setShowAnswer(true);
-      setLitSources(new Set(SOURCES.filter((s) => s.active).map((s) => s.label)));
+      setLitSources(new Set(sources.filter((s) => s.active).map((s) => s.id)));
       return;
     }
     const el = root.current;
@@ -74,7 +118,14 @@ export function AssistantSpace() {
       },
     });
     return () => st.kill();
-  }, [reduced]);
+  }, [play, question, reduced, sources]);
+
+  useEffect(() => {
+    if (!played.current) return;
+    setTyped(question);
+    setShowAnswer(true);
+    setLitSources(new Set(sources.filter((s) => s.active).map((s) => s.id)));
+  }, [question, sources]);
 
   // parallax on cursor inside the space
   useEffect(() => {
@@ -93,8 +144,8 @@ export function AssistantSpace() {
   }, [reduced]);
 
   const visibleSources = filter
-    ? SOURCES.filter((s) => s.type === filter)
-    : SOURCES;
+    ? sources.filter((s) => s.type === filter)
+    : sources;
 
   return (
     <div
@@ -112,11 +163,11 @@ export function AssistantSpace() {
 
       {/* floating source nodes */}
       {visibleSources.map((s) => {
-        const lit = litSources.has(s.label);
+        const lit = litSources.has(s.id);
         const depth = 1 + (s.x + s.y) / 200;
         return (
           <button
-            key={s.label}
+            key={s.id}
             type="button"
             onClick={() => setFilter(filter === s.type ? null : s.type)}
             data-cursor={lit ? "OPEN" : undefined}
@@ -127,7 +178,7 @@ export function AssistantSpace() {
               transform: `translate(-50%, -50%) translate3d(calc(var(--px) * ${depth * 18}px), calc(var(--py) * ${depth * 18}px), 0)`,
               zIndex: lit ? 5 : 2,
             }}
-            aria-label={`${s.type} source: ${s.label}`}
+            aria-label={`${s.type} ${localized.source}: ${s.label}`}
           >
             <div
               className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-[11px] backdrop-blur transition-all duration-500 ${
@@ -172,9 +223,9 @@ export function AssistantSpace() {
         className="pointer-events-none absolute inset-0 h-full w-full"
         aria-hidden="true"
       >
-        {SOURCES.filter((s) => litSources.has(s.label)).map((s) => (
+        {sources.filter((s) => litSources.has(s.id)).map((s) => (
           <line
-            key={s.label}
+            key={s.id}
             x1={`${s.x}%`}
             y1={`${s.y}%`}
             x2="50%"
@@ -198,7 +249,7 @@ export function AssistantSpace() {
           <div className="mb-2 flex items-center justify-between">
             <span className="eyebrow flex items-center gap-1.5">
               <span className={`status-dot ${showAnswer ? "" : "animate-pulse"}`} />
-              {showAnswer ? "Grounded response" : "Retrieving…"}
+              {showAnswer ? localized.grounded : localized.retrieving}
             </span>
             <span className="font-mono text-[9px] text-faint">AI · v1.0</span>
           </div>
@@ -206,7 +257,7 @@ export function AssistantSpace() {
           {/* question */}
           <div className="mb-2 rounded-lg bg-ink px-3 py-2 text-[12px] text-white">
             {typed || <span className="opacity-50">…</span>}
-            {typed.length < QUESTION.length && typed.length > 0 ? (
+            {typed.length < question.length && typed.length > 0 ? (
               <span className="ml-0.5 inline-block h-3 w-px animate-pulse bg-white align-middle" />
             ) : null}
           </div>
@@ -214,7 +265,7 @@ export function AssistantSpace() {
           {/* answer */}
           {showAnswer ? (
             <p className="text-[12.5px] leading-relaxed text-ink-soft">
-              {ANSWER}
+              {answer}
             </p>
           ) : (
             <div className="flex items-center gap-1.5 py-2">

@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { capabilities } from "@/content/site-content";
+import { useLanguage } from "@/lib/i18n";
 import {
   useReducedMotion,
   useIsomorphicLayoutEffect,
@@ -18,6 +18,8 @@ gsap.registerPlugin(ScrollTrigger);
  * related capabilities and reorganizes the constellation.
  */
 export function Capabilities() {
+  const { content, copy } = useLanguage();
+  const { capabilities } = content;
   const reduced = useReducedMotion();
   const root = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState<string | null>(null);
@@ -38,7 +40,7 @@ export function Capabilities() {
         z: Number(Math.cos(phi).toFixed(3)),
       };
     });
-  }, []);
+  }, [capabilities]);
 
   const idToNode = useMemo(() => {
     const m = new Map<string, { x: number; y: number }>();
@@ -104,15 +106,14 @@ export function Capabilities() {
       {/* heading */}
       <div className="mx-auto mb-10 max-w-[1400px] px-4 md:mb-16 md:px-8">
         <p className="eyebrow mb-5">
-          <span className="text-violet">C—01</span> · Capabilities
+          <span className="text-violet">C—01</span> · {copy.capabilities.eyebrow}
         </p>
         <h2 className="kinetic max-w-4xl text-[clamp(2.2rem,6vw,5rem)] text-ink">
-          A connected{" "}
-          <span className="text-spectral">neural constellation</span>.
+          {copy.capabilities.lineOne}{" "}
+          <span className="text-spectral">{copy.capabilities.accent}</span>.
         </h2>
         <p className="mt-4 max-w-xl text-[15px] text-muted">
-          Hover, focus, or click a node. The constellation is the interface —
-          not a list beside it.
+          {copy.capabilities.hint}
         </p>
       </div>
 
@@ -235,7 +236,7 @@ export function Capabilities() {
               </div>
             ) : (
               <p className="font-mono text-[12px] text-faint">
-                ◦ Select a capability to explore its connections
+                {copy.capabilities.empty}
               </p>
             )}
           </div>

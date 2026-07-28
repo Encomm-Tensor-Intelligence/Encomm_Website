@@ -3,10 +3,10 @@
 import { useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { systems } from "@/content/site-content";
 import { AssistantSpace } from "@/components/spatial/AssistantSpace";
 import { PostmatrixOrbit } from "@/components/spatial/PostmatrixOrbit";
 import { CustomComposer } from "@/components/spatial/CustomComposer";
+import { useLanguage } from "@/lib/i18n";
 import {
   useReducedMotion,
   useIsomorphicLayoutEffect,
@@ -19,6 +19,8 @@ gsap.registerPlugin(ScrollTrigger);
  * Each system gets its own full-viewport stage with its own visual language.
  */
 export function Systems() {
+  const { content, copy } = useLanguage();
+  const { systems } = content;
   const reduced = useReducedMotion();
   const root = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
@@ -58,11 +60,11 @@ export function Systems() {
       {/* Section intro */}
       <div className="mx-auto max-w-[1400px] px-4 py-20 md:px-8 md:py-28">
         <p className="eyebrow mb-5">
-          <span className="text-violet">S—00</span> · Systems
+          <span className="text-violet">S—00</span> · {copy.systems.eyebrow}
         </p>
         <h2 className="kinetic max-w-4xl text-[clamp(2.2rem,6vw,5rem)] text-ink">
-          Three ways intelligence becomes{" "}
-          <span className="text-spectral">a working system</span>.
+          {copy.systems.lineOne}{" "}
+          <span className="text-spectral">{copy.systems.accent}</span>.
         </h2>
         {/* progress rail with active index */}
         <div className="mt-10 flex items-center gap-4">

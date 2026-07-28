@@ -2,10 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { nav, primaryNavCta } from "@/content/site-content";
 import { cn } from "@/lib/cn";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { BrandMark } from "@/components/brand/BrandMark";
+import { LanguageToggle } from "@/components/ui/LanguageToggle";
+import { useLanguage } from "@/lib/i18n";
 import {
   useActiveSection,
   useReducedMotion,
@@ -23,6 +24,8 @@ const SECTION_IDS = [
 ];
 
 export function Navigation() {
+  const { content, copy } = useLanguage();
+  const { nav, primaryNavCta } = content;
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const active = useActiveSection(SECTION_IDS);
@@ -88,7 +91,7 @@ export function Navigation() {
       >
         <div className="mx-auto max-w-[1400px] px-4 md:px-8">
           <nav
-            aria-label="Primary"
+            aria-label={copy.navigation.primary}
             data-cursor="EXPLORE"
             className={cn(
               "relative flex items-center justify-between gap-3 rounded-full border px-3 py-2 pl-3 transition-all duration-500",
@@ -111,7 +114,7 @@ export function Navigation() {
             <Link
               href="#top"
               className="flex items-center gap-2.5 rounded-full"
-              aria-label="ENCOMM — back to top"
+              aria-label={copy.navigation.backToTop}
             >
               <span className="relative">
                 <BrandMark className="h-7 w-7" />
@@ -160,7 +163,8 @@ export function Navigation() {
               })}
             </ul>
 
-            <div className="hidden items-center md:flex">
+            <div className="hidden items-center gap-2 md:flex">
+              <LanguageToggle />
               <MagneticButton href={primaryNavCta.href} variant="primary" size="sm">
                 {primaryNavCta.label}
               </MagneticButton>
@@ -173,9 +177,11 @@ export function Navigation() {
               className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface text-ink md:hidden"
               aria-expanded={open}
               aria-controls="mobile-menu"
-              aria-label={open ? "Close menu" : "Open menu"}
+              aria-label={
+                open ? copy.navigation.closeMenu : copy.navigation.openMenu
+              }
             >
-              <span className="sr-only">Menu</span>
+              <span className="sr-only">{copy.navigation.menu}</span>
               <div className="relative h-3 w-4">
                 <span
                   className={cn(
@@ -207,7 +213,7 @@ export function Navigation() {
         id="mobile-menu"
         role="dialog"
         aria-modal="true"
-        aria-label="Site menu"
+        aria-label={copy.navigation.siteMenu}
         className={cn(
           "fixed inset-0 z-40 md:hidden",
           open ? "pointer-events-auto" : "pointer-events-none",
@@ -239,7 +245,12 @@ export function Navigation() {
             open ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0",
           )}
         >
-          <p className="eyebrow mb-8 text-center">ENCOMM · ENTERPRISE AI</p>
+          <div className="mb-7 flex justify-center">
+            <LanguageToggle />
+          </div>
+          <p className="eyebrow mb-8 text-center">
+            {copy.navigation.mobileEyebrow}
+          </p>
           <ul className="flex flex-col">
             {nav.map((item, i) => (
               <li key={item.href}>

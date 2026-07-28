@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion/use-scroll-state";
+import { useLanguage } from "@/lib/i18n";
 
 type Column = "source" | "intel" | "outcome";
 
@@ -32,6 +33,47 @@ const OPTIONS: Record<Column, { id: string; label: string; sub: string }[]> = {
  * Not real AI — an interactive product visualization.
  */
 export function CustomComposer() {
+  const { language } = useLanguage();
+  const localized =
+    language === "el"
+      ? {
+          options: {
+            source: [
+              { id: "docs", label: "Έγγραφα", sub: "PDF · Word" },
+              { id: "web", label: "Ιστοσελίδες", sub: "Συλλογή" },
+              { id: "db", label: "Βάση δεδομένων", sub: "Δομημένη" },
+              { id: "api", label: "API", sub: "Εξωτερικό" },
+            ],
+            intel: [
+              { id: "assistant", label: "Assistant", sub: "Ερωτήσεις & απαντήσεις" },
+              { id: "agent", label: "Agent", sub: "Αυτόνομος" },
+              { id: "workflow", label: "Ροή εργασίας", sub: "Αυτοματοποιημένη" },
+            ],
+            outcome: [
+              { id: "review", label: "Ανθρώπινος έλεγχος", sub: "Εγκεκριμένο" },
+              { id: "system", label: "Εξωτερικό σύστημα", sub: "Συγχρονισμένο" },
+              { id: "app", label: "Εφαρμογή", sub: "Ενσωματωμένη" },
+            ],
+          } satisfies typeof OPTIONS,
+          title: "Σύνθεση συστήματος",
+          status: "ΡΥΘΜΙΣΗ · LIVE",
+          reconfiguring: "Αναδιαμόρφωση",
+          source: "Πηγή",
+          intelligence: "Νοημοσύνη",
+          outcome: "Αποτέλεσμα",
+          path: "ΡΟΗ",
+        }
+      : {
+          options: OPTIONS,
+          title: "System composer",
+          status: "CONFIGURE · LIVE",
+          reconfiguring: "Reconfiguring",
+          source: "Source",
+          intelligence: "Intelligence",
+          outcome: "Outcome",
+          path: "PATH",
+        };
+  const options = localized.options;
   const reduced = useReducedMotion();
   const [sel, setSel] = useState<Record<Column, string>>({
     source: "docs",
@@ -40,11 +82,11 @@ export function CustomComposer() {
   });
 
   const activePath = useMemo(() => {
-    const s = OPTIONS.source.find((o) => o.id === sel.source)!;
-    const i = OPTIONS.intel.find((o) => o.id === sel.intel)!;
-    const o = OPTIONS.outcome.find((o) => o.id === sel.outcome)!;
+    const s = options.source.find((o) => o.id === sel.source)!;
+    const i = options.intel.find((o) => o.id === sel.intel)!;
+    const o = options.outcome.find((o) => o.id === sel.outcome)!;
     return { s, i, o };
-  }, [sel]);
+  }, [sel, options]);
 
   const Animate = reduced ? "div" : motion.div;
 
@@ -62,28 +104,28 @@ export function CustomComposer() {
             ⌬
           </div>
           <div className="leading-tight">
-            <div className="text-[12px] font-medium text-ink">System composer</div>
-            <div className="font-mono text-[9px] text-faint">CONFIGURE · LIVE</div>
+            <div className="text-[12px] font-medium text-ink">{localized.title}</div>
+            <div className="font-mono text-[9px] text-faint">{localized.status}</div>
           </div>
         </div>
         <span className="chip">
-          <span className="status-dot !h-1.5 !w-1.5" /> Reconfiguring
+          <span className="status-dot !h-1.5 !w-1.5" /> {localized.reconfiguring}
         </span>
       </div>
 
       {/* three columns of options */}
       <div className="absolute inset-x-3 top-16 bottom-3 grid grid-cols-3 gap-2">
-        {(Object.keys(OPTIONS) as Column[]).map((col, colIdx) => (
+        {(Object.keys(options) as Column[]).map((col, colIdx) => (
           <div key={col} className="flex flex-col">
             <p className="eyebrow mb-2 text-center !text-[9px]">
               {col === "source"
-                ? "Source"
+                ? localized.source
                 : col === "intel"
-                  ? "Intelligence"
-                  : "Outcome"}
+                  ? localized.intelligence
+                  : localized.outcome}
             </p>
             <div className="flex flex-1 flex-col gap-1.5">
-              {OPTIONS[col].map((opt) => {
+              {options[col].map((opt) => {
                 const active = sel[col] === opt.id;
                 return (
                   <button
@@ -127,7 +169,7 @@ export function CustomComposer() {
       {/* active path summary bar at bottom */}
       <div className="absolute inset-x-3 bottom-3 rounded-xl border border-line bg-white/80 px-3 py-2 backdrop-blur">
         <div className="flex items-center gap-2 text-[10px]">
-          <span className="font-mono text-violet">PATH</span>
+          <span className="font-mono text-violet">{localized.path}</span>
           <Animate
             key={activePath.s.id}
             initial={reduced ? false : { opacity: 0, y: 6 }}

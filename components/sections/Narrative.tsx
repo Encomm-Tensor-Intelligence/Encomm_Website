@@ -3,8 +3,8 @@
 import { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { stages } from "@/content/site-content";
 import { SplitChars } from "@/components/motion/Kinetic";
+import { useLanguage } from "@/lib/i18n";
 import {
   useReducedMotion,
   useIsomorphicLayoutEffect,
@@ -25,6 +25,8 @@ const STAGE_GLYPH: Record<string, string> = {
  * the next; oversized kinetic numbers + a traveling signal line.
  */
 export function Narrative() {
+  const { content, copy } = useLanguage();
+  const { stages } = content;
   const reduced = useReducedMotion();
   const root = useRef<HTMLDivElement>(null);
   const rail = useRef<HTMLDivElement>(null);
@@ -105,14 +107,14 @@ export function Narrative() {
         {/* Heading — oversized, split */}
         <div className="mb-16 md:mb-24">
           <p className="eyebrow mb-5">
-            <span className="text-violet">N—01</span> · The arc
+            <span className="text-violet">N—01</span> · {copy.narrative.eyebrow}
           </p>
           <h2 className="kinetic text-[clamp(2.4rem,7vw,6rem)] text-ink">
             <span className="stage-word block">
-              <SplitChars text="Raw information" />
+              <SplitChars text={copy.narrative.lineOne} />
             </span>
             <span className="stage-word block text-spectral">
-              <SplitChars text="becomes useful action." />
+              <SplitChars text={copy.narrative.lineTwo} />
             </span>
           </h2>
         </div>

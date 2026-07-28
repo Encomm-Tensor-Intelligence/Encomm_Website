@@ -1,12 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { company, contact, footerNav } from "@/content/site-content";
+import { company, contact } from "@/content/site-content";
 import { BrandMark } from "@/components/brand/BrandMark";
 import { motion } from "@/lib/motion/motion-store";
 import { useEffect, useState } from "react";
+import { useLanguage } from "@/lib/i18n";
 
 export function Footer() {
+  const { language, content, copy } = useLanguage();
+  const { footerNav } = content;
   const year = new Date().getFullYear();
   const [coord, setCoord] = useState("LAT 37.98 · LON 23.72");
 
@@ -17,10 +20,12 @@ export function Footer() {
       const t = `${String(now.getUTCHours()).padStart(2, "0")}:${String(
         now.getUTCMinutes(),
       ).padStart(2, "0")}:${String(now.getUTCSeconds()).padStart(2, "0")} UTC`;
-      setCoord(`ATHENS · ${t} · ${motion.activeSection.toUpperCase()}`);
+      setCoord(
+        `${language === "el" ? "ΑΘΗΝΑ" : "ATHENS"} · ${t} · ${motion.activeSection.toUpperCase()}`,
+      );
     }, 1000);
     return () => window.clearInterval(id);
-  }, []);
+  }, [language]);
 
   return (
     <footer className="relative overflow-hidden border-t border-line bg-paper">
@@ -44,7 +49,7 @@ export function Footer() {
               href="#top"
               data-cursor="VIEW"
               className="flex items-center gap-2.5"
-              aria-label="ENCOMM — back to top"
+              aria-label={copy.navigation.backToTop}
             >
               <BrandMark className="h-7 w-7" />
               <span className="font-display text-[15px] font-semibold tracking-[0.2em] text-ink">
@@ -52,7 +57,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="mt-4 max-w-xs text-[13px] leading-relaxed text-muted">
-              {company.descriptor}. {company.country} → Global.
+              {copy.footer.descriptor}. {copy.footer.country}.
             </p>
 
             <div className="mt-5 flex flex-col gap-2 text-[12px] text-faint">
@@ -65,7 +70,7 @@ export function Footer() {
                 </a>
               ) : (
                 <span className="italic">
-                  Public email — to be confirmed by ENCOMM
+                  {copy.footer.publicEmail}
                 </span>
               )}
               {contact.social.length > 0 ? (
@@ -82,7 +87,7 @@ export function Footer() {
                 </div>
               ) : (
                 <span className="italic">
-                  Social profiles — to be confirmed by ENCOMM
+                  {copy.footer.social}
                 </span>
               )}
             </div>
@@ -115,17 +120,17 @@ export function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-line pt-6 text-[12px] text-faint md:flex-row md:items-center">
-          <div>© {year} {company.legalName}. All rights reserved.</div>
+          <div>© {year} {company.legalName}. {copy.footer.rights}</div>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <span className="inline-flex items-center gap-1.5 font-mono">
               <span className="status-dot !h-1.5 !w-1.5" />
               {coord}
             </span>
             <Link href="/privacy" className="hover:text-ink">
-              Privacy
+              {copy.footer.privacy}
             </Link>
             <Link href="/terms" className="hover:text-ink">
-              Terms
+              {copy.footer.terms}
             </Link>
           </div>
         </div>

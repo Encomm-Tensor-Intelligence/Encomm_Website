@@ -7,6 +7,7 @@ import {
   useReducedMotion,
   useIsomorphicLayoutEffect,
 } from "@/lib/motion/use-scroll-state";
+import { useLanguage } from "@/lib/i18n";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,6 +40,48 @@ const CHANNEL_COLOR: Record<Item["channel"], string> = {
  * control-room that stays bright and elegant.
  */
 export function PostmatrixOrbit() {
+  const { language } = useLanguage();
+  const labels =
+    language === "el"
+      ? {
+          titles: [
+            "Teaser λανσαρίσματος",
+            "Μύθοι και αλήθειες για το AI",
+            "Carousel · enterprise AI",
+            "Εβδομαδιαία σύνοψη",
+            "Ιστορία πελάτη",
+            "Η ομάδα στο προσκήνιο",
+          ],
+          orbit: "ΠΕΡΙΕΧΟΜΕΝΟ · ΤΡΟΧΙΑ",
+          active: "Agent ενεργός",
+          ideas: "Ιδέες",
+          analytics: "Αναλυτικά",
+          reach: "Απήχηση",
+          engage: "Αλληλεπίδραση",
+          schedule: "Πρόγραμμα",
+          states: {
+            idea: "ιδέα",
+            draft: "πρόχειρο",
+            scheduled: "προγραμματισμένο",
+            published: "δημοσιευμένο",
+          },
+        }
+      : {
+          titles: SEED.map((item) => item.title),
+          orbit: "CONTENT · ORBIT",
+          active: "Agent active",
+          ideas: "Ideas",
+          analytics: "Analytics",
+          reach: "Reach",
+          engage: "Engage",
+          schedule: "Schedule",
+          states: {
+            idea: "idea",
+            draft: "draft",
+            scheduled: "scheduled",
+            published: "published",
+          },
+        };
   const reduced = useReducedMotion();
   const root = useRef<HTMLDivElement>(null);
   const [items, setItems] = useState<Item[]>(SEED);
@@ -131,6 +174,8 @@ export function PostmatrixOrbit() {
 
   const orbitItems = items.filter((i) => i.state !== "idea");
   const ideas = items.filter((i) => i.state === "idea");
+  const itemTitle = (item: Item) =>
+    labels.titles[item.id - 1] ?? item.title;
 
   return (
     <div
@@ -149,17 +194,17 @@ export function PostmatrixOrbit() {
           </div>
           <div className="leading-tight">
             <div className="text-[12px] font-medium text-ink">Postmatrix</div>
-            <div className="font-mono text-[9px] text-faint">CONTENT · ORBIT</div>
+            <div className="font-mono text-[9px] text-faint">{labels.orbit}</div>
           </div>
         </div>
         <span className="chip">
-          <span className="status-dot !h-1.5 !w-1.5" /> Agent active
+          <span className="status-dot !h-1.5 !w-1.5" /> {labels.active}
         </span>
       </div>
 
       {/* ideas column (left) */}
       <div className="absolute left-3 top-1/2 w-[26%] -translate-y-1/2 space-y-1.5">
-        <p className="eyebrow mb-2 !text-[9px]">Ideas</p>
+        <p className="eyebrow mb-2 !text-[9px]">{labels.ideas}</p>
         {ideas.map((it) => (
           <div
             key={it.id}
@@ -168,7 +213,7 @@ export function PostmatrixOrbit() {
             onMouseLeave={() => setHovered(null)}
             className="rounded-lg border border-dashed border-line bg-white/70 px-2 py-1.5 text-[10px] text-muted transition-all hover:-translate-y-0.5 hover:border-violet/40"
           >
-            <span className="block truncate">{it.title}</span>
+            <span className="block truncate">{itemTitle(it)}</span>
           </div>
         ))}
       </div>
@@ -219,10 +264,10 @@ export function PostmatrixOrbit() {
                       style={{ background: CHANNEL_COLOR[it.channel] }}
                     />
                     <span className="font-mono text-[7px] uppercase text-faint">
-                      {it.state}
+                      {labels.states[it.state]}
                     </span>
                   </div>
-                  <div className="truncate text-[9.5px] text-ink">{it.title}</div>
+                  <div className="truncate text-[9.5px] text-ink">{itemTitle(it)}</div>
                 </div>
               </div>
             );
@@ -253,12 +298,12 @@ export function PostmatrixOrbit() {
 
       {/* analytics (right) */}
       <div className="absolute right-3 top-1/2 w-[24%] -translate-y-1/2">
-        <p className="eyebrow mb-2 !text-[9px]">Analytics</p>
+        <p className="eyebrow mb-2 !text-[9px]">{labels.analytics}</p>
         <div className="space-y-2">
           {[
-            { l: "Reach", v: 78 },
-            { l: "Engage", v: 54 },
-            { l: "Schedule", v: 92 },
+            { l: labels.reach, v: 78 },
+            { l: labels.engage, v: 54 },
+            { l: labels.schedule, v: 92 },
           ].map((a) => (
             <div key={a.l}>
               <div className="mb-0.5 flex justify-between font-mono text-[8px] text-faint">

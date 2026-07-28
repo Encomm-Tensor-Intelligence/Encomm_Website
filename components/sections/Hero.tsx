@@ -4,9 +4,9 @@ import dynamic from "next/dynamic";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { hero } from "@/content/site-content";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { SplitChars } from "@/components/motion/Kinetic";
+import { useLanguage } from "@/lib/i18n";
 import {
   useReducedMotion,
   useIsomorphicLayoutEffect,
@@ -29,6 +29,8 @@ const EncommCore = dynamic(() => import("@/components/webgl/EncommCore"), {
  *  90–100% aligns, headline + CTAs resolve
  */
 export function Hero() {
+  const { content, copy } = useLanguage();
+  const { hero } = content;
   const reduced = useReducedMotion();
   const root = useRef<HTMLDivElement>(null);
   const pin = useRef<HTMLDivElement>(null);
@@ -239,16 +241,16 @@ export function Hero() {
                 ref={headline}
                 className="kinetic text-[clamp(2.6rem,7vw,5.4rem)] text-ink"
               >
-                <span className="block">AI, made</span>
-                <span className="block text-spectral">operational.</span>
+                <span className="block">{copy.hero.lineOne}</span>
+                <span className="block text-spectral">{copy.hero.lineTwo}</span>
               </h1>
               <p
                 ref={supporting}
                 className="mt-6 max-w-md text-base leading-relaxed text-muted md:text-lg"
               >
-                Knowledge becomes understanding.
+                {copy.hero.supportingOne}
                 <br />
-                Understanding becomes action.
+                {copy.hero.supportingTwo}
               </p>
               <div ref={ctas} className="mt-8 flex flex-wrap gap-3">
                 <MagneticButton
@@ -276,7 +278,7 @@ export function Hero() {
             className="pointer-events-none absolute bottom-5 left-1/2 -translate-x-1/2"
           >
             <div className="flex flex-col items-center gap-2 text-faint">
-              <span className="eyebrow !text-[9px]">Scroll to engage</span>
+              <span className="eyebrow !text-[9px]">{copy.hero.scroll}</span>
               <span className="relative block h-9 w-px overflow-hidden bg-line">
                 <span className="absolute inset-x-0 top-0 h-3 animate-[heroCue_1.8s_var(--ease-in-out-quart)_infinite] bg-violet" />
               </span>

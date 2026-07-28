@@ -73,8 +73,14 @@ particles — never from black backgrounds.
 
 ```bash
 npm install
-npm run dev          # http://localhost:3000 (or next free port)
+npm run dev
 ```
+
+Then open **http://127.0.0.1:3000** in your browser. Keep the terminal window
+running while you view the site.
+
+The **EN / EL** control in the header switches the entire experience between
+English and Greek and remembers the selected language on the same device.
 
 ## Commands
 
@@ -169,14 +175,16 @@ All copy, nav, systems, capabilities, use cases, and contact config live in:
 content/site-content.ts
 ```
 
-## Contact endpoint
+## Contact form
 
-```
-lib/contact-config.ts  →  NEXT_PUBLIC_CONTACT_ENDPOINT → CONTACT_ENDPOINT → demo mode
-```
+The live contact form posts to the same-origin `/api/contact` route and delivers
+project enquiries to `info@encomm.ai` through Resend. It includes server-side
+validation, origin checks, a honeypot, completion-time checks, link filtering,
+request-size limits and rate limiting.
 
-No endpoint configured → **demo mode**: validates locally, clearly states no
-message was sent. Never fakes success.
+Copy `.env.example` to `.env.local`, verify `encomm.ai` in Resend and set
+`RESEND_API_KEY` before testing real delivery. Secrets are server-only and are
+never sent to the browser.
 
 ## Accessibility
 
@@ -201,5 +209,13 @@ Regenerate icons: `python scripts/generate-icons.py`
 
 ## Privacy & legal
 
-`app/privacy/` and `app/terms/` are structural placeholders — clearly marked.
-Replace with verified copy before launch.
+The website includes bilingual Privacy, Terms and Cookie pages under `/en` and
+`/el`. The company identity uses the official G.E.MI. record:
+
+- ENCOMM Ι.Κ.Ε.
+- G.E.MI. 189303806000
+- Greek VAT 803095422
+- 18 Ethnikis Antistaseos, Thessaloniki 551 33, Greece
+
+The legal copy must be reviewed whenever hosting, email delivery, analytics or
+other data flows change.
