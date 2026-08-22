@@ -36,7 +36,7 @@ const pageCopy = {
       human: "HUMAN",
       watermark: ["THINKS", "MOVES", "EVOLVES"],
       reality: "Built for reality, not the demo.",
-      scroll: "Scroll to turn the intelligence",
+      scroll: "Scroll to activate the intelligence",
     },
     ticker: ["STRATEGY", "AGENTS", "AUTOMATION", "PRODUCTS"],
     manifesto: {
@@ -258,7 +258,7 @@ const pageCopy = {
       human: "ΑΝΘΡΩΠΟΣ",
       watermark: ["ΣΚΕΦΤΕΤΑΙ", "ΚΙΝΕΙΤΑΙ", "ΕΞΕΛΙΣΣΕΤΑΙ"],
       reality: "Σχεδιασμένο για την πραγματικότητα, όχι μόνο για την επίδειξη.",
-      scroll: "Κυλήστε τη σελίδα για να κινηθεί η νοημοσύνη",
+      scroll: "Κυλήστε τη σελίδα για να ενεργοποιηθεί η νοημοσύνη",
     },
     ticker: ["ΣΤΡΑΤΗΓΙΚΗ", "ΠΡΑΚΤΟΡΕΣ", "ΑΥΤΟΜΑΤΙΣΜΟΙ", "ΠΡΟΪΟΝΤΑ"],
     manifesto: {
@@ -688,15 +688,18 @@ export default function Home() {
         if (hero) {
           const distance = Math.max(1, hero.offsetHeight - window.innerHeight);
           const heroProgress = Math.min(1, Math.max(0, (window.scrollY - hero.offsetTop) / distance));
-          root.style.setProperty("--hero-progress", heroProgress.toFixed(4));
-          root.style.setProperty("--face-turn", `${(heroProgress * 26).toFixed(2)}deg`);
-          root.style.setProperty("--face-tilt", `${(heroProgress * 2.5).toFixed(2)}deg`);
-          root.style.setProperty("--face-rise", `${(heroProgress * 44).toFixed(1)}px`);
-          root.style.setProperty("--face-scale", (1 + heroProgress * 0.08).toFixed(3));
-          root.style.setProperty("--halo-scale", (1 + heroProgress * 0.12).toFixed(3));
-          root.style.setProperty("--data-shift", `${(heroProgress * -32).toFixed(1)}px`);
-          root.style.setProperty("--watermark-shift", `${(heroProgress * -64).toFixed(1)}px`);
-          root.style.setProperty("--hero-fade", (1 - heroProgress * 0.36).toFixed(3));
+          const visualProgress = reduceMotion ? 0 : heroProgress;
+          root.style.setProperty("--hero-progress", visualProgress.toFixed(4));
+          root.style.setProperty("--face-rise", `${(visualProgress * -14).toFixed(1)}px`);
+          root.style.setProperty("--face-scale", (1 + visualProgress * 0.018).toFixed(3));
+          root.style.setProperty("--halo-scale", (1 + visualProgress * 0.16).toFixed(3));
+          root.style.setProperty("--data-shift", `${(visualProgress * -14).toFixed(1)}px`);
+          root.style.setProperty("--watermark-shift", `${(visualProgress * -22).toFixed(1)}px`);
+          root.style.setProperty("--hero-fade", (1 - visualProgress * 0.08).toFixed(3));
+          root.style.setProperty("--activation-reveal", `${(18 + visualProgress * 72).toFixed(1)}%`);
+          root.style.setProperty("--activation-glow", (0.18 + visualProgress * 0.64).toFixed(3));
+          root.style.setProperty("--scan-y", `${(18 + visualProgress * 62).toFixed(1)}%`);
+          root.style.setProperty("--signal-angle", `${(visualProgress * 54).toFixed(1)}deg`);
         }
       });
     };

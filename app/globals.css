@@ -18,8 +18,6 @@
   --cursor-y: 50vh;
   --scroll-progress: 0;
   --hero-progress: 0;
-  --face-turn: 0deg;
-  --face-tilt: 0deg;
   --face-rise: 0px;
   --face-scale: 1;
   --face-pointer-x: 0px;
@@ -28,6 +26,10 @@
   --data-shift: 0px;
   --watermark-shift: 0px;
   --hero-fade: 1;
+  --activation-reveal: 18%;
+  --activation-glow: 0.18;
+  --scan-y: 18%;
+  --signal-angle: 0deg;
 }
 
 * { box-sizing: border-box; }
@@ -491,6 +493,33 @@ html[lang="el"] .hero-copy-block h1 {
   perspective: 1500px;
   transform-style: preserve-3d;
 }
+.face-stage::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  width: 82%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    conic-gradient(
+      from 18deg,
+      transparent 0 12%,
+      rgba(121, 88, 255, 0.2) 12.2% 12.45%,
+      transparent 12.7% 42%,
+      rgba(34, 203, 232, 0.22) 42.2% 42.45%,
+      transparent 42.7% 72%,
+      rgba(121, 88, 255, 0.15) 72.2% 72.45%,
+      transparent 72.7% 100%
+    );
+  opacity: calc(0.28 + var(--activation-glow) * 0.42);
+  filter: drop-shadow(0 0 2.5rem rgba(112, 88, 255, 0.11));
+  transform: translate(-50%, -50%) rotate(var(--signal-angle)) scale(var(--halo-scale));
+  transition: transform 160ms cubic-bezier(.2,.7,.2,1), opacity 160ms linear;
+  -webkit-mask-image: radial-gradient(circle, transparent 0 52%, #000 53% 69%, transparent 70%);
+  mask-image: radial-gradient(circle, transparent 0 52%, #000 53% 69%, transparent 70%);
+}
 .face-shell {
   position: absolute;
   z-index: 4;
@@ -499,11 +528,44 @@ html[lang="el"] .hero-copy-block h1 {
   width: min(42vw, 39rem);
   aspect-ratio: 2 / 3;
   overflow: hidden;
-  transform: translate3d(calc(-50% + var(--face-pointer-x)), calc(-50% + var(--face-rise) + var(--face-pointer-y)), 0) rotateY(var(--face-turn)) rotateZ(var(--face-tilt)) scale(var(--face-scale));
+  transform: translate3d(calc(-50% + var(--face-pointer-x)), calc(-50% + var(--face-rise) + var(--face-pointer-y)), 0) scale(var(--face-scale));
   transform-origin: 50% 48%;
   transform-style: preserve-3d;
-  transition: transform 90ms linear;
+  transition: transform 160ms cubic-bezier(.2,.7,.2,1);
   mask-image: linear-gradient(to bottom, black 0%, black 82%, transparent 100%);
+}
+.face-shell::before {
+  content: "";
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 36% 36%, rgba(104, 230, 255, 0.9), transparent 3.5%),
+    radial-gradient(circle at 64% 36%, rgba(104, 230, 255, 0.9), transparent 3.5%),
+    linear-gradient(115deg, transparent 35%, rgba(255,255,255,.5) 49%, rgba(130,214,255,.18) 51%, transparent 66%);
+  mix-blend-mode: screen;
+  opacity: var(--activation-glow);
+  transition: opacity 140ms linear;
+}
+.face-shell::after {
+  content: "";
+  position: absolute;
+  z-index: 4;
+  right: 6%;
+  bottom: 13%;
+  left: 6%;
+  height: var(--activation-reveal);
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(73, 190, 229, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(121, 88, 255, 0.12) 1px, transparent 1px);
+  background-size: 1.15rem 1.15rem;
+  mix-blend-mode: screen;
+  opacity: calc(var(--activation-glow) * 0.58);
+  -webkit-mask-image: linear-gradient(to top, #000 0%, rgba(0,0,0,.9) 62%, transparent 100%);
+  mask-image: linear-gradient(to top, #000 0%, rgba(0,0,0,.9) 62%, transparent 100%);
+  transition: height 140ms linear, opacity 140ms linear;
 }
 .ai-face {
   display: block;
@@ -515,13 +577,14 @@ html[lang="el"] .hero-copy-block h1 {
 .face-scan {
   position: absolute;
   z-index: 5;
-  top: 16%;
+  top: var(--scan-y);
   left: 8%;
   width: 84%;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(62, 177, 231, 0.75), transparent);
   box-shadow: 0 0 16px rgba(62, 177, 231, 0.45);
-  animation: face-scan 5.5s ease-in-out infinite;
+  animation: none;
+  transition: top 140ms linear, opacity 140ms linear;
 }
 .face-halo {
   position: absolute;
