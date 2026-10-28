@@ -85,8 +85,9 @@ export default function RootLayout({
       "Greek AI software company building practical AI systems, agents, automation, integrations and custom products.",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Εθνικής Αντιστάσεως 18",
-      addressLocality: "Thessaloniki",
+      streetAddress: "Βουλγαροκτόνου 12",
+      addressLocality: "Kalamaria",
+      addressRegion: "Thessaloniki",
       postalCode: "55133",
       addressCountry: "GR",
     },

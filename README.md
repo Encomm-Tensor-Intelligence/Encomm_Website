@@ -215,7 +215,7 @@ The website includes bilingual Privacy, Terms and Cookie pages under `/en` and
 - ENCOMM Ι.Κ.Ε.
 - G.E.MI. 189303806000
 - Greek VAT 803095422
-- 18 Ethnikis Antistaseos, Thessaloniki 551 33, Greece
+- 12 Voulgaroktonou, Kalamaria / Thessaloniki 55133, Greece
 
 The legal copy must be reviewed whenever hosting, email delivery, analytics or
 other data flows change.
