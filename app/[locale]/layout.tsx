@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { LanguageProvider } from "@/lib/i18n";
+import { ChatWidget } from "@/components/ui/ChatWidget";
 import type { Language } from "@/content/site-content";
 
 const locales = ["en", "el"] as const;
@@ -24,6 +25,7 @@ export default async function LocaleLayout({
       followStoredPreference={false}
     >
       {children}
+      <ChatWidget />
     </LanguageProvider>
   );
 }
